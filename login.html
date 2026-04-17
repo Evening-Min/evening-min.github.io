@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Login | My Automotive Blog</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="login-page-body">
+
+    <div class="login-card">
+        <header class="login-header">
+            <h2>ADMIN ACCESS</h2>
+        </header>
+        
+        <main class="login-body">
+            <div class="input-group">
+                <label for="admin-id">ID</label>
+                <input type="text" id="admin-id" autocomplete="off">
+            </div>
+            
+            <div class="input-group">
+                <label for="admin-pw">Password</label>
+                <input type="password" id="admin-pw">
+            </div>
+            
+            <button type="button" id="btn-login" class="btn-login">SIGN IN</button>
+            
+            <p id="error-text" class="error-msg">Invalid ID or Password.</p>
+        </main>
+    </div>
+
+    <script src="login.js"></script>
+</body>
+</html>

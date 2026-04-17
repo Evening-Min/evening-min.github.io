@@ -1,0 +1,305 @@
+/* 기본 스타일 초기화 및 폰트 설정 */
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: 'Noto Sans KR', sans-serif; line-height: 1.6; color: #333; background-color: #f9f9f9; }
+a { text-decoration: none; color: inherit; }
+
+/* 1. 상단 히어로 섹션 */
+.hero-section {
+    position: relative;
+    width: 100%;
+    height: 40vh; /* 화면 높이의 60% 사용 */
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.hero-photo {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* 사진 비율 유지하며 꽉 채우되 아래부분이 더 많이 나오게 */
+    object-position: center 70%;
+    filter: brightness(0.8); /* 텍스트 가독성을 위해 사진을 살짝 어둡게 */
+}
+.hero-text-container {
+    position: absolute;
+    text-align: center;
+}
+.hero-text-container h1 {
+    color: white;
+    font-size: 3rem; /* 모바일에서는 조정 필요 */
+    font-weight: 700;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.5); /* 글자 그림자 */
+}
+
+/* 2. 네비게이션 버튼 (사진 바로 아래) */
+.main-nav {
+    background-color: #1a1a1a;
+    padding: 10px 0;
+}
+.main-nav ul {
+    list-style: none;
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+}
+.nav-btn {
+    color: #ccc;
+    font-size: 1rem;
+    font-weight: bold;
+    padding: 10px 20px;
+    transition: color 0.3s;
+}
+.nav-btn:hover {
+    color: white;
+}
+
+/* 3. 본문 컨텐츠 레이아웃 */
+.content-container {
+    max-width: 1100px;
+    margin: 40px auto;
+    padding: 0 20px;
+}
+.section-title {
+    text-align: center;
+    margin-bottom: 30px;
+    font-size: 1.8rem;
+}
+
+/* 시승기 그리드 (PC 기준 3열) */
+.post-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); /* 반응형 */
+    gap: 20px;
+    margin-bottom: 40px;
+}
+
+/* 시승기 카드 디자인 (그림 반영) */
+.post-card {
+    background: white;
+    border-radius: 12px;
+    border: 1px solid #ddd;
+    overflow: hidden;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1); /* 그림자 효과 */
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+.post-card:hover {
+    transform: translateY(-5px); /* 호버 시 살짝 들림 */
+    box-shadow: 0 8px 15px rgba(0,0,0,0.15);
+}
+
+.card-header {
+    background-color: #f4f4f4;
+    padding: 15px;
+    border-bottom: 1px solid #ddd;
+    text-align: center;
+}
+.card-header h3 {
+    font-size: 1.1rem;
+}
+
+.card-image-placeholder {
+    height: 180px;
+    background-color: #166088; /* 그림에 있는 남색 배경 */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+}
+
+.card-content {
+    padding: 20px;
+    text-align: center;
+    font-size: 1rem;
+}
+
+/* 더보기 버튼 */
+.more-btn-container {
+    text-align: center;
+}
+.btn-more {
+    display: inline-block;
+    padding: 12px 24px;
+    background-color: #444; /* 그림에 있는 회색 배경 */
+    color: white;
+    border-radius: 4px;
+    font-weight: bold;
+    transition: background 0.3s;
+}
+.btn-more:hover {
+    background-color: #222;
+}
+
+/* 모바일 반응형 처리 */
+@media (max-width: 768px) {
+    .hero-text-container h1 { font-size: 2rem; }
+    .hero-section { height: 40vh; }
+    .post-grid { grid-template-columns: 1fr; } /* 모바일에선 1열 */
+}
+
+/* 관리자 페이지로 이동하는 구간 */
+.admin-footer {
+    margin-top: 100px;
+    padding: 40px 0;
+    border-top: 1px solid #eee;
+    text-align: center;
+    background-color: #fcfcfc;
+}
+.footer-container {
+    max-width: 1100px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 20px;
+    color: #888;
+    font-size: 0.9rem;
+}
+.footer-info {
+    text-align: left; /* 텍스트 왼쪽 정렬 */
+    color: #888;
+    font-size: 0.9rem;
+    line-height: 1.6;
+}
+.admin-link {
+    color: #ccc;
+    text-decoration: none;
+    transition: color 0.3s;
+}
+.admin-link:hover {
+    color: #666; /* 관리자만 알 수 있게 살짝 진해짐 */
+}
+/* 노션 스타일 테이블 전용 */
+.notion-table tr:hover {
+    background-color: #f7f8f9; /* 마우스 올렸을 때 노션처럼 회색 강조 */
+}
+
+.notion-table th {
+    border-right: 1px solid #edeef0;
+}
+
+.notion-table td {
+    border-right: 1px solid #edeef0;
+    white-space: nowrap;
+}
+
+.notion-table th:last-child, .notion-table td:last-child {
+    border-right: none;
+}
+
+/* 태그 스타일 미세 조정 */
+.tag-h, .tag-s, .tag-g, .tag-z {
+    font-size: 0.85rem;
+    display: inline-block;
+}
+/* 로그인 페이지 레이아웃 */
+.login-page-body {
+    background-color: #f4f4f4;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+}
+
+/* 로그인 카드 (인덱스 카드 디자인 계승) */
+.login-card {
+    width: 100%;
+    max-width: 400px;
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+    overflow: hidden;
+    border: 1px solid #ddd;
+}
+
+.login-header {
+    background-color: #1a1a1a;
+    color: white;
+    padding: 25px;
+    text-align: center;
+}
+
+.login-header h2 {
+    font-size: 1.3rem;
+    margin: 0;
+    letter-spacing: 1px;
+}
+
+.login-body {
+    padding: 30px;
+}
+
+.input-group {
+    margin-bottom: 20px;
+}
+
+.input-group label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: bold;
+    font-size: 0.85rem;
+    color: #666;
+    text-transform: uppercase;
+}
+
+.input-group input {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    outline: none;
+    box-sizing: border-box; /* 패딩이 너비에 영향을 주지 않도록 설정 */
+    transition: border-color 0.3s;
+}
+
+.input-group input:focus {
+    border-color: #2383e2;
+}
+
+/* 로그인 버튼 */
+.btn-login {
+    width: 100%;
+    padding: 15px;
+    background-color: #1a1a1a;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    font-weight: bold;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+
+.btn-login:hover {
+    background-color: #333;
+}
+
+/* 에러 메시지 */
+.error-msg {
+    color: #d9534f;
+    font-size: 0.85rem;
+    margin-top: 15px;
+    text-align: center;
+    display: none; /* 기본적으로 숨김 */
+}
+/* 관리자 페이지 레이아웃 */
+.admin-page { background: #fff; margin: 0; font-family: sans-serif; }
+.admin-header { display: flex; justify-content: space-between; align-items: center; padding: 20px 40px; border-bottom: 1px solid #eee; }
+
+/* 노션 테이블 스타일 */
+.notion-table { width: 100%; border-collapse: collapse; border-top: 1px solid #eee; }
+.notion-table th { color: #888; font-weight: normal; font-size: 0.85rem; padding: 12px; border-bottom: 1px solid #eee; border-right: 1px solid #eee; text-align: left; }
+.notion-table td { padding: 12px; border-bottom: 1px solid #eee; border-right: 1px solid #eee; font-size: 0.9rem; }
+
+/* 모달 스타일 */
+.modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); z-index: 1000; }
+.modal-content { background: white; width: 500px; margin: 100px auto; padding: 30px; border-radius: 10px; box-shadow: 0 10px 30px rgba(0,0,0,0.2); }
+.form-row { display: flex; align-items: center; margin-bottom: 15px; border-bottom: 1px solid #f0f0f0; padding-bottom: 5px; }
+.form-row label { width: 100px; color: #666; font-size: 0.9rem; }
+.form-row input, .form-row select { border: none; flex: 1; outline: none; padding: 5px; }
+
+/* 버튼 스타일 */
+.btn-new { background: #2383e2; color: white; border: none; padding: 8px 16px; border-radius: 4px; cursor: pointer; }
+.btn-primary { background: #1a1a1a; color: white; border: none; padding: 10px 20px; border-radius: 5px; cursor: pointer; }
+.btn-secondary { background: #eee; border: none; padding: 10px 20px; border-radius: 5px; cursor: pointer; }
+.modal-footer { display: flex; justify-content: flex-end; gap: 10px; margin-top: 20px; }
