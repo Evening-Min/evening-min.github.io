@@ -1,0 +1,20 @@
+[
+  {
+    "name": "2022 Tesla Model 3",
+    "year": "2022",
+    "brand": "Tesla",
+    "type": "Sedan",
+    "fuel": "Electric",
+    "size": "Mid-size",
+    "price": "55,000,000"
+  },
+  {
+    "name": "2025 Hyundai Santa Fe",
+    "year": "2025",
+    "brand": "Hyundai",
+    "type": "SUV",
+    "fuel": "Gasoline",
+    "size": "Mid-size",
+    "price": "45,000,000"
+  }
+]
