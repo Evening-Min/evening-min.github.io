@@ -1,0 +1,49 @@
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+    font-family: 'Pretendard', sans-serif;
+    line-height: 1.6;
+    color: #1a1a1a;
+    background-color: #fcfcfc;
+}
+a { text-decoration: none; color: inherit; }
+.container {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+/* 공통 푸터 설정 */
+.admin-footer {
+    background: #fff;
+    padding: 60px 0;
+    border-top: 1px solid #eee;
+    margin-top: 80px; /* 메인 콘텐츠와의 간격 확보 */
+}
+
+.footer-container {
+    max-width: 1100px; /* 메인 콘텐츠 박스 너비와 동일하게 설정 */
+    margin: 0 auto;    /* 중앙 정렬 */
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    padding: 0 20px;   /* 내부 여백 추가 */
+}
+
+.footer-info {
+    text-align: left;
+}
+
+.footer-info p {
+    font-size: 0.85rem;
+    color: #888;
+    margin-bottom: 5px;
+}
+
+.admin-link {
+    font-size: 0.8rem;
+    color: #ccc; /* 아주 연하게 처리해서 튀지 않게 */
+    transition: color 0.3s;
+}
+
+.admin-link:hover {
+    color: #2383e2; /* 호버 시에만 강조 */
+}

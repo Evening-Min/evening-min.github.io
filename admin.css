@@ -1,0 +1,121 @@
+.admin-header { background: #fff; padding: 20px 0; border-bottom: 1px solid #eee; }
+.header-container { display: flex; justify-content: space-between; align-items: center; }
+
+/* 노션 테이블 */
+.notion-table {
+    width: 100%; border-collapse: collapse; background: white;
+    border: 1px solid #eee; border-radius: 8px; margin-top: 20px;
+}
+.notion-table th { background: #f9f9f9; padding: 12px; font-size: 0.85rem; color: #777; text-align: left; border-bottom: 1px solid #eee; }
+.notion-table td { padding: 12px; border-bottom: 1px solid #eee; font-size: 0.9rem; }
+
+/* 모달 그리드 */
+.modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.7); backdrop-filter: blur(5px); z-index: 9999; }
+.modal-content { background: white; width: 680px; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); padding: 40px; border-radius: 20px; }
+#car-form { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+.form-row.full-width { grid-column: span 2; }
+.form-row label { font-size: 0.8rem; font-weight: bold; margin-bottom: 6px; display: block; }
+.form-row input, .form-row select { padding: 12px; border: 1px solid #ddd; border-radius: 8px; width: 100%; }
+.modal-footer { grid-column: span 2; display: flex; justify-content: flex-end; gap: 12px; margin-top: 25px; border-top: 1px solid #eee; padding-top: 15px; }
+
+/* =========================================
+   6. 로그인 페이지 전용 (Login Page)
+   ========================================= */
+
+/* 로그인 페이지의 body에 이 클래스를 추가하세요: <body class="login-page-body"> */
+.login-page-body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background-color: #f4f7f6; /* 약간의 푸른빛이 도는 깔끔한 회색 */
+    margin: 0;
+}
+
+.login-card {
+    width: 100%;
+    max-width: 400px;
+    background: white;
+    padding: 40px;
+    border-radius: 20px;
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+
+.login-card h2 {
+    font-size: 1.8rem;
+    font-weight: 800;
+    margin-bottom: 10px;
+    color: #1a1a1a;
+}
+
+.login-card p {
+    color: #888;
+    font-size: 0.9rem;
+    margin-bottom: 30px;
+}
+
+/* 입력창 그룹 */
+.login-input-group {
+    text-align: left;
+    margin-bottom: 20px;
+}
+
+.login-input-group label {
+    display: block;
+    font-size: 0.8rem;
+    font-weight: 700;
+    color: #666;
+    margin-bottom: 8px;
+    margin-left: 4px;
+}
+
+.login-input-group input {
+    width: 100%;
+    padding: 14px;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    font-size: 1rem;
+    background-color: #f9f9f9;
+    transition: all 0.2s ease;
+}
+
+.login-input-group input:focus {
+    border-color: #2383e2;
+    background-color: #fff;
+    outline: none;
+    box-shadow: 0 0 0 4px rgba(35, 131, 226, 0.1);
+}
+
+/* 로그인 버튼 */
+.btn-login {
+    width: 100%;
+    padding: 14px;
+    background-color: #1a1a1a;
+    color: white;
+    border: none;
+    border-radius: 10px;
+    font-size: 1rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: background 0.3s ease;
+    margin-top: 10px;
+}
+
+.btn-login:hover {
+    background-color: #444;
+}
+
+/* 돌아가기 링크 */
+.back-to-main {
+    display: inline-block;
+    margin-top: 20px;
+    font-size: 0.85rem;
+    color: #aaa;
+    text-decoration: none;
+    transition: color 0.3s;
+}
+
+.back-to-main:hover {
+    color: #666;
+}

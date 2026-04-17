@@ -9,5 +9,5 @@
 // 로그아웃 공통 함수
 function logout() {
     sessionStorage.removeItem("isLoggedIn");
-    window.location.href = "index.html";
+    window.location.href = "login.html";
 }
