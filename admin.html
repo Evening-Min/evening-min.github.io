@@ -8,10 +8,12 @@
 </head>
 <body class="admin-page">
     <header class="admin-header">
-        <h1>Database Admin</h1>
-        <div class="header-tools">
-            <button id="btn-open-modal" class="btn-new">새로 만들기</button>
-            <button onclick="logout()" class="btn-logout">로그아웃</button>
+        <div class="header-container">
+            <h1>Database Admin</h1>
+            <div class="header-tools">
+                <button id="btn-open-modal" class="btn-new">+ 새로 만들기</button>
+                <button onclick="logout()" class="btn-logout">로그아웃</button>
+            </div>
         </div>
     </header>
 
@@ -37,31 +39,71 @@
 
     <div id="modal-container" class="modal">
         <div class="modal-content">
-            <h3>새 자동차 정보 입력</h3>
+            <div class="modal-header">
+                <h3>새 자동차 정보 입력</h3>
+                <p>구글 폼으로 전송 전 데이터를 확인하세요.</p>
+            </div>
+            
             <form id="car-form">
-                <div class="form-row"><label>이름</label><input type="text" id="name" placeholder="Santa Fe"></div>
-                <div class="form-row"><label>연식</label><input type="number" id="year" placeholder="2025"></div>
-                <div class="form-row"><label>브랜드</label><input type="text" id="brand" placeholder="Hyundai"></div>
+                <div class="form-row">
+                    <label>자동차 이름</label>
+                    <input type="text" id="name" placeholder="예: Santa Fe" required>
+                </div>
+                <div class="form-row">
+                    <label>연식</label>
+                    <input type="number" id="year" placeholder="예: 2025" required>
+                </div>
+                <div class="form-row">
+                    <label>브랜드</label>
+                    <select id="brand">
+                        <option value="Hyundai">Hyundai</option>
+                        <option value="Kia">Kia</option>
+                        <option value="Genesis">Genesis</option>
+                        <option value="Tesla">Tesla</option>
+                        <option value="BMW">BMW</option>
+                        <option value="Mercedes">Mercedes</option>
+                    </select>
+                </div>
                 <div class="form-row">
                     <label>형식</label>
                     <select id="type">
                         <option value="SUV">SUV</option>
                         <option value="Sedan">Sedan</option>
+                        <option value="Hatchback">Hatchback</option>
                         <option value="Coupe">Coupe</option>
                     </select>
                 </div>
-                <div class="form-row"><label>연료</label><input type="text" id="fuel" placeholder="Gasoline"></div>
-                <div class="form-row"><label>크기</label><input type="text" id="size" placeholder="중형"></div>
-                <div class="form-row"><label>가격</label><input type="text" id="price" placeholder="49,900,000"></div>
+                <div class="form-row">
+                    <label>연료 종류</label>
+                    <select id="fuel">
+                        <option value="Gasoline">Gasoline</option>
+                        <option value="Diesel">Diesel</option>
+                        <option value="Hybrid">Hybrid</option>
+                        <option value="Electric">Electric</option>
+                    </select>
+                </div>
+                <div class="form-row">
+                    <label>크기</label>
+                    <select id="size">
+                        <option value="Compact">소형</option>
+                        <option value="Midsize">중형</option>
+                        <option value="Full-size">대형</option>
+                    </select>
+                </div>
+                <div class="form-row">
+                    <label>차량 가격</label>
+                    <input type="text" id="price" placeholder="금액을 입력하세요" oninput="formatPrice(this)">
+                </div>
                 
                 <div class="modal-footer">
                     <button type="button" id="btn-cancel" class="btn-secondary">취소</button>
-                    <button type="button" id="btn-next" class="btn-primary">다음</button>
+                    <button type="button" id="btn-next" class="btn-primary">데이터 전송(구글 폼)</button>
                 </div>
             </form>
         </div>
     </div>
 
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.3.2/papaparse.min.js"></script>
     <script src="admin.js"></script>
 </body>
 </html>
