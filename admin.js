@@ -129,18 +129,20 @@ function loadGoogleSheetData() {
 
 function renderTable(data) {
     const tbody = document.getElementById('db-body');
-    if(!tbody) return;
+    if (!tbody) return;
     tbody.innerHTML = ''; 
+
     data.forEach(car => {
-        if(car.자동차이름 || car['Aa 자동차 이름']) {
+        // 'Aa 자동차 이름' 필드가 있는지 확인하여 유효한 행만 출력
+        if (car['Aa 자동차 이름']) {
             const row = `<tr>
-                <td>📄 <strong>${car.자동차이름 || car['Aa 자동차 이름']}</strong></td>
-                <td>${car.연식 || car['# 연식']}</td>
-                <td>${car.브랜드 || car['▽ 브랜드']}</td>
-                <td>${car.형식 || car['▽ 형식']}</td>
-                <td>${car.연료 || car['▽ 연료 종류']}</td>
-                <td>${car.크기 || car['▽ 크기']}</td>
-                <td>${car.가격 || car['# 가격']}</td>
+                <td>📄 <strong>${car['Aa 자동차 이름']}</strong></td>
+                <td>${car['# 연식']}</td>
+                <td>${car['▽ 브랜드']}</td>
+                <td>${car['▽ 형식']}</td>
+                <td>${car['▽ 연료 종류']}</td>
+                <td>${car['▽ 크기']}</td>
+                <td>${car['# 가격']}</td>
             </tr>`;
             tbody.innerHTML += row;
         }
