@@ -39,7 +39,10 @@
     "price": "34,000,000",
     "experience": "렌터카/카셰어링",
     "date": "2026-04-19",
-    "isPublished": false,
-    "reviewPath": ""
+    "isPublished": true,
+    "reviewPath": "reviews/1776605215696_Sonata.json",
+    "postTitle": "괜히 스테디셀러가 아님",
+    "imageFolder": "",
+    "imageCount": 0
   }
 ]
