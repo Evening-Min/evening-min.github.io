@@ -184,82 +184,110 @@
     margin-top: 30px;
 }
 
-/* --- [로그인 페이지 디자인] --- */
+/* --- [Login Page Design] --- */
 
-/* 1. 로그인 배경 */
-.login-page {
-    background-color: #f8f9fa;
+/* 1. 로그인 페이지 배경 */
+.login-page-body {
+    background-color: #f4f7f9; /* 연한 그레이 블루 톤 */
     display: flex;
     justify-content: center;
     align-items: center;
     height: 100vh;
     margin: 0;
+    font-family: 'Pretendard', -apple-system, sans-serif;
 }
 
 /* 2. 로그인 카드 컨테이너 */
-.login-container {
-    background: white;
-    padding: 40px;
+.login-card {
+    background: #ffffff;
+    padding: 50px 40px;
     border-radius: 20px;
-    box-shadow: 0 10px 25px rgba(0,0,0,0.05);
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.08);
     width: 100%;
-    max-width: 400px;
+    max-width: 420px;
     text-align: center;
 }
 
-.login-container h1 {
-    font-size: 1.8rem;
-    color: #333;
+.login-card h2 {
+    font-size: 1.75rem;
+    color: #1a1a1a;
     margin-bottom: 10px;
+    font-weight: 700;
 }
 
-.login-container p {
-    color: #888;
-    font-size: 0.9rem;
-    margin-bottom: 30px;
+.login-card p {
+    color: #666;
+    font-size: 0.95rem;
+    margin-bottom: 35px;
 }
 
-/* 3. 로그인 폼 레이아웃 */
-.login-form {
-    display: flex;
-    flex-direction: column;
-    gap: 15px;
+/* 3. 입력 그룹 (아이디, 비번, 토큰) */
+.login-input-group {
+    text-align: left;
+    margin-bottom: 20px;
 }
 
-.login-form input {
-    padding: 14px;
-    border: 1px solid #ddd;
-    border-radius: 10px;
+.login-input-group label {
+    display: block;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: #444;
+    margin-bottom: 8px;
+    margin-left: 4px;
+}
+
+.login-input-group input {
+    width: 100%;
+    padding: 14px 16px;
+    border: 1px solid #e0e0e0;
+    border-radius: 12px;
     font-size: 1rem;
+    box-sizing: border-box; /* 패딩 포함 너비 계산 */
+    transition: all 0.2s ease;
     outline: none;
-    transition: border-color 0.2s;
 }
 
-.login-form input:focus {
-    border-color: #2383e2;
+.login-input-group input:focus {
+    border-color: #1976d2; /* 강조 포인트 컬러 */
+    box-shadow: 0 0 0 3px rgba(25, 118, 210, 0.1);
 }
 
-/* 4. 로그인 버튼 (어드민 메인 버튼과 통일감 유지) */
+/* 4. 로그인 버튼 (어드민 메인 버튼들과 통일감 부여) */
 .btn-login {
+    width: 100%;
     background-color: #1976d2;
-    color: white;
+    color: #ffffff;
     border: none;
-    padding: 14px;
-    border-radius: 10px;
-    font-size: 1rem;
+    padding: 16px;
+    border-radius: 12px;
+    font-size: 1.05rem;
     font-weight: 600;
     cursor: pointer;
-    transition: background-color 0.2s;
+    margin-top: 10px;
+    transition: background-color 0.2s ease;
 }
 
 .btn-login:hover {
     background-color: #1565c0;
 }
 
-/* 5. 에러 메시지 스타일 */
-#error-msg {
-    color: #ff4d4f;
-    font-size: 0.85rem;
-    margin-top: 10px;
-    min-height: 1.2em;
+/* 5. 메인 페이지로 돌아가기 링크 */
+.back-to-main {
+    display: inline-block;
+    margin-top: 25px;
+    color: #888;
+    text-decoration: none;
+    font-size: 0.9rem;
+    transition: color 0.2s;
+}
+
+.back-to-main:hover {
+    color: #333;
+    text-decoration: underline;
+}
+
+/* 6. 에러 텍스트 (아이디/비번 불일치 시) */
+#error-text {
+    margin-bottom: 15px;
+    font-weight: 500;
 }
