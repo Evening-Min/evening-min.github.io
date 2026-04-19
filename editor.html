@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>Editor | 시승기 작성</title>
+    <link rel="stylesheet" href="common.css?v=1.1">
+    <link rel="stylesheet" href="editor.css?v=1.1">
+    <script src="auth.js"></script>
+</head>
+<body>
+    <header class="admin-header">
+        <div class="header-container">
+            <h1>New Review Editor</h1>
+            <button onclick="location.href='admin.html'" class="btn-logout-link">← 관리자로 돌아가기</button>
+        </div>
+    </header>
+
+    <main class="editor-main">
+        <div class="editor-container">
+            <section class="editor-meta">
+                <select id="car-selector">
+                    <option value="">대상 차량 선택 (DB에서 불러오는 중...)</option>
+                </select>
+                <input type="text" id="post-title" placeholder="시승기 제목을 입력하세요" class="input-title">
+                <input type="text" id="thumbnail-url" placeholder="대표 이미지 URL (예: images/tesla.jpg)" class="input-thumb">
+            </section>
+
+            <section class="editor-body">
+                <textarea id="post-content" placeholder="차량에 대한 솔직한 시승기를 자유롭게 작성해 보세요."></textarea>
+            </section>
+
+            <div class="editor-actions">
+                <button id="btn-save-post" class="btn-new-sky">시승기 발행하기</button>
+            </div>
+        </div>
+    </main>
+
+    <script src="editor.js?v=1.1"></script>
+</body>
+</html>
