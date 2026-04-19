@@ -38,24 +38,23 @@ async function initEditor() {
         const res = await fetch('data.json?t=' + new Date().getTime());
         currentAllData = await res.json();
         
-        const selector = document.getElementById('car-selector');
-        selector.innerHTML = '<option value="">대상 차량을 선택하세요</option>';
+        if (targetCarIndex === null || !currentAllData[targetCarIndex]) {
+            alert("잘못된 접근입니다.");
+            location.href = 'admin.html';
+            return;
+        }
 
-        currentAllData.forEach((car, index) => {
-            const opt = document.createElement('option');
-            opt.value = index;
-            opt.innerText = `[${car.brand}] ${car.name}`;
-            // URL 파라미터와 일치하는 차량 자동 선택
-            if (index == targetCarIndex) opt.selected = true;
-            selector.appendChild(opt);
-        });
+        const car = currentAllData[targetCarIndex];
+        
+        // 🚗 h3 태그에 차량 정보 노출
+        const infoTag = document.getElementById('target-car-info');
+        infoTag.innerText = `작성 중인 차량: ${car.year} ${car.brand} ${car.name}`;
 
-        // 수정 모드: 기존 시승기 정보가 있다면 필드에 채움
-        if (targetCarIndex !== null && currentAllData[targetCarIndex].isPublished) {
-            const car = currentAllData[targetCarIndex];
+        // 수정 모드일 경우 기존 데이터 채우기
+        if (car.isPublished) {
             document.getElementById('post-title').value = car.postTitle || "";
             document.getElementById('post-content').value = car.postContent || "";
-            document.getElementById('file-count').innerText = `기존 폴더: ${car.imageFolder || '없음'}`;
+            document.getElementById('file-count').innerText = `기존 이미지 폴더: ${car.imageFolder}`;
             document.getElementById('btn-save-post').innerText = "시승기 수정 완료";
         }
     } catch (e) {

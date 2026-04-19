@@ -15,11 +15,11 @@
 
     <main class="editor-main">
         <div class="editor-container">
-            
+            <h3 id="target-car-info" style="color: #555; margin-bottom: 20px; font-weight: 500;">
+                차량 정보를 불러오는 중...
+            </h3>
+
             <section class="editor-meta">
-                <select id="car-selector">
-                    <option value="">대상 차량 선택 (DB에서 불러오는 중...)</option>
-                </select>
                 <input type="text" id="post-title" placeholder="시승기 제목을 입력하세요" class="input-title">
             </section>
 
@@ -29,15 +29,15 @@
                     <input type="file" id="file-input" multiple accept="image/*" style="display: none;">
                     <span id="file-count">선택된 파일 없음</span>
                 </div>
-                <div id="image-preview-list" class="preview-container"></div>
             </section>
 
             <section class="editor-body">
                 <textarea id="post-content" placeholder="차량에 대한 시승기를 자유롭게 작성해 보세요."></textarea>
             </section>
 
-            <div class="editor-actions">
+            <div class="editor-actions-center">
                 <button id="btn-save-post" class="btn-new-sky">시승기 발행하기</button>
+                <button onclick="location.href='admin.html'" class="btn-back-link">관리자로 돌아가기</button>
             </div>
         </div>
     </main>

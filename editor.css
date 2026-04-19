@@ -60,3 +60,38 @@
     font-size: 0.9rem;
     color: #666;
 }
+/* 하단 버튼 중앙 정렬 */
+.editor-actions-center {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+    margin-top: 50px;
+}
+
+/* 관리자로 돌아가기 (텍스트 링크 스타일) */
+.btn-back-link {
+    background: none;
+    border: none;
+    color: #888;
+    cursor: pointer;
+    font-size: 0.9rem;
+    text-decoration: none;
+}
+
+.btn-back-link:hover {
+    text-decoration: underline;
+    color: #333;
+}
+
+/* 제목 입력창 하단 라인 강조 */
+.input-title {
+    width: 100%;
+    font-size: 2.2rem;
+    font-weight: 700;
+    border: none;
+    border-bottom: 2px solid #f0f0f0;
+    padding: 15px 0;
+    margin-bottom: 30px;
+    outline: none;
+}
