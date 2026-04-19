@@ -17,19 +17,11 @@
     "type": "SUV",
     "fuel": "Gasoline",
     "size": "Mid-size",
-    "price": "45,000,000",
+    "price": "49,900,000",
     "experience": "본인/가족 차량",
-    "date": "2024-10-14"
-  },
-  {
-    "name": "Sonata",
-    "year": "2024",
-    "brand": "Hyundai",
-    "type": "Sedan",
-    "fuel": "Gasoline",
-    "size": "Mid-size",
-    "price": "34,500,000",
-    "experience": "렌터카/카셰어링",
-    "date": "2026-04-19"
+    "date": "2026-04-19",
+    "isPublished": false,
+    "reviewPath": "",
+    "imageFolder": ""
   }
 ]
