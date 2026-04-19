@@ -19,7 +19,7 @@
 .modal-footer { grid-column: span 2; display: flex; justify-content: flex-end; gap: 12px; margin-top: 25px; border-top: 1px solid #eee; padding-top: 15px; }
 
 /* =========================================
-   6. 로그인 페이지 전용 (Login Page)
+   로그인 페이지 전용 (Login Page)
    ========================================= */
 
 /* 로그인 페이지의 body에 이 클래스를 추가하세요: <body class="login-page-body"> */
@@ -118,4 +118,67 @@
 
 .back-to-main:hover {
     color: #666;
+}
+/* admin.css 하단에 추가 또는 수정 */
+
+#error-text {
+    background-color: #fff1f1;
+    padding: 8px;
+    border-radius: 6px;
+    border: 1px solid #ffcccc;
+}
+
+/* 입력창 포커스 시 효과 */
+.login-input-group input:focus {
+    border-color: #1a1a1a;
+    outline: none;
+    background-color: #fff;
+}
+/* 이름 클릭 스타일 */
+.clickable-name {
+    color: #007bff;
+    cursor: pointer;
+    text-decoration: underline;
+}
+.clickable-name:hover {
+    color: #0056b3;
+}
+
+/* 메인 컨테이너: 좌우 마진 확보 (ESTJ 스타일의 정갈한 배치) */
+.admin-main {
+    max-width: 1200px; /* 너무 퍼지지 않게 제한 */
+    margin: 40px auto; /* 상하 40px, 좌우 자동(중앙 정렬) */
+    padding: 0 20px;   /* 모바일 대응용 최소 여백 */
+}
+
+/* 테이블 내 이름 클릭 스타일 */
+.clickable-name {
+    color: #2383e2;
+    cursor: pointer;
+    text-decoration: none;
+    font-weight: bold;
+}
+.clickable-name:hover {
+    text-decoration: underline;
+}
+
+/* 삭제 버튼 디자인 */
+.btn-delete {
+    background-color: #fff5f5;
+    color: #ff4d4f;
+    border: 1px solid #ffccc7;
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-size: 12px;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+.btn-delete:hover {
+    background-color: #ff4d4f;
+    color: white;
+}
+
+/* 테이블 텍스트 정렬 보정 */
+.notion-table td {
+    vertical-align: middle;
 }
