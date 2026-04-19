@@ -33,24 +33,39 @@ function renderReviewPage(page) {
     const pagedData = allPublishedData.slice(start, end);
 
     pagedData.forEach(car => {
-        // 이미지 폴더 내의 1.jpg를 썸네일로 사용 (없을 시 히어로 이미지 대체)
-        const thumbImg = car.imageFolder ? `images/${car.imageFolder}/1.jpg` : 'images/review-car.jpeg';
-        
-        const card = document.createElement('article');
-        card.className = 'post-card';
-        card.onclick = () => location.href = `post.html?path=${car.reviewPath}`;
+    // 이미지 경로 설정
+    const thumbImg = car.imageFolder ? `images/${car.imageFolder}/1.jpg` : null;
+    
+    const card = document.createElement('article');
+    card.className = 'post-card';
+    card.onclick = () => location.href = `post.html?path=${car.reviewPath}`;
 
-        card.innerHTML = `
-            <div class="card-image-container">
-                <img src="${thumbImg}" onerror="this.src='images/review-car.jpeg'" alt="${car.name}">
+    // 이미지 영역 처리: 이미지가 있으면 img 태그, 없으면 placeholder div
+    const imageHTML = thumbImg 
+        ? `<img src="${thumbImg}" onerror="handleImgError(this)" alt="${car.name}">`
+        : `<div class="no-image-placeholder">사진 없음</div>`;
+
+    card.innerHTML = `
+        <div class="card-image-container">
+            ${imageHTML}
+        </div>
+        <div class="card-content">
+            <div class="card-meta">
+                <span class="meta-item">${car.year}</span>
+                <span class="meta-item">${car.brand}</span>
+                <span class="meta-item">${car.name}</span>
             </div>
-            <div class="card-content">
-                <div class="card-meta">[${car.year}] [${car.brand}] [${car.name}]</div>
-                <h3 class="card-title">${car.postTitle || '제목 없는 시승기'}</h3>
-            </div>
-        `;
-        grid.appendChild(card);
-    });
+            <h3 class="card-title">${car.postTitle || '제목 없는 시승기'}</h3>
+        </div>
+    `;
+    grid.appendChild(card);
+});
+
+// 이미지 로드 실패 시(경로에 파일이 없을 때) 처리 함수
+function handleImgError(img) {
+    const container = img.parentElement;
+    container.innerHTML = `<div class="no-image-placeholder">사진 없음</div>`;
+}
 
     renderPagination();
 }
