@@ -26,13 +26,13 @@
             <table class="notion-table">
                 <thead>
                     <tr>
-                        <th>Aa 자동차 이름</th>
-                        <th># 연식</th>
-                        <th>▽ 브랜드</th>
-                        <th>▽ 형식</th>
-                        <th>▽ 연료 종류</th>
-                        <th>▽ 크기</th>
-                        <th># 가격</th>
+                        <th>🚘 자동차 이름</th>
+                        <th>🔟 연식</th>
+                        <th>⭐️ 브랜드</th>
+                        <th>🚙 형식</th>
+                        <th>⛽️ 연료 종류</th>
+                        <th>📏 크기</th>
+                        <th>💵 가격</th>
                         <th>🗺️ 체험 경로</th>
                         <th>📅 등록일</th>
                         <th>⚙️ 관리</th>
@@ -54,7 +54,7 @@
                 <div class="form-grid">
                     <div class="form-row">
                         <label>자동차 이름</label>
-                        <input type="text" id="name" placeholder="예: Tesla Model 3">
+                        <input type="text" id="name" placeholder="예: Sonata">
                     </div>
                     <div class="form-row">
                         <label>연식</label>
@@ -62,7 +62,29 @@
                     </div>
                     <div class="form-row">
                         <label>브랜드</label>
-                        <input type="text" id="brand" placeholder="Hyundai">
+                        <select id="brand">
+                            <optgroup label="국산차">
+                                <option value="Hyundai">현대</option>
+                                <option value="Kia">기아</option>
+                                <option value="Genesis">제네시스</option>
+                                <option value="Chevrolet">쉐보레</option>
+                                <option value="KGM">KG 모빌리티</option>
+                                <option value="Renault Korea">르노코리아</option>
+                            </optgroup>
+                            
+                            <optgroup label="수입차">
+                                <option value="Audi">아우디 (Audi)</option>
+                                <option value="Alfa Romeo">알파로메오 (Alfa Romeo)</option>
+                                <option value="BMW">BMW</option>
+                                <option value="Ford">포드 (Ford)</option>
+                                <option value="Jaguar">재규어 (Jaguar)</option>
+                                <option value="Land Rover">랜드로버 (Land Rover)</option>
+                                <option value="Mercedes-Benz">메르세데스-벤츠 (Mercedes-Benz)</option>
+                                <option value="Porsche">포르쉐 (Porsche)</option>
+                                <option value="Tesla">테슬라 (Tesla)</option>
+                                <option value="Volkswagen">폭스바겐 (Volkswagen)</option>
+                            </optgroup>
+                        </select>
                     </div>
                     <div class="form-row">
                         <label>형식</label>
@@ -70,23 +92,35 @@
                             <option value="Sedan">세단</option>
                             <option value="SUV">SUV</option>
                             <option value="Hatchback">해치백</option>
+                            <option value="Wagon">왜건</option>
+                            <option value="Minivan">미니밴</option>
                             <option value="Coupe">쿠페</option>
+                            <option value="Convertible">컨버터블</option>
+                            <option value="Truck">트럭</option>
                         </select>
                     </div>
                     <div class="form-row">
                         <label>연료 종류</label>
                         <select id="fuel">
                             <option value="Gasoline">가솔린</option>
+                            <option value="Diesel">디젤</option>
+                            <option value="LPG">LPG</option>
+                            <option value="Gasoline Hybrid">가솔린 하이브리드</option>
+                            <option value="Plug-in Hybrid">플러그인 하이브리드</option>
                             <option value="Electric">전기</option>
-                            <option value="Hybrid">하이브리드</option>
+                            <option value="EREV">EREV</option>
+                            <option value="Hydrogen">수소</option>
                         </select>
                     </div>
                     <div class="form-row">
                         <label>크기</label>
                         <select id="size">
+                            <option value="Mini">경형</option>
+                            <option value="Subcompact">소형</option>
                             <option value="Compact">준중형</option>
                             <option value="Mid-size">중형</option>
                             <option value="Full-size">준대형</option>
+                            <option value="Large">대형</option>
                         </select>
                     </div>
                     <div class="form-row">
@@ -97,8 +131,11 @@
                         <label>체험 경로</label>
                         <select id="experience">
                             <option value="본인/가족 차량">본인/가족 차량</option>
+                            <option value="지인/친척 차량">지인/친척 차량</option>
+                            <option value="소속 기관 차량">소속 기관 차량</option>
                             <option value="제조사 시승">제조사 시승</option>
                             <option value="렌터카/카셰어링">렌터카/카셰어링</option>
+                            <option value="기타">기타</option>
                         </select>
                     </div>
                 </div>
