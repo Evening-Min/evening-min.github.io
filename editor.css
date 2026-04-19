@@ -42,3 +42,21 @@
     resize: none;
     outline: none;
 }
+.editor-assets {
+    margin-top: 20px;
+    padding: 20px;
+    background: #f8f9fa;
+    border-radius: 8px;
+    border: 1px dashed #dee2e6;
+}
+
+.upload-control {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+#file-count {
+    font-size: 0.9rem;
+    color: #666;
+}
