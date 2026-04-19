@@ -159,21 +159,35 @@ function loadLocalData() {
         });
 }
 
+/**
+ * 테이블 렌더링 함수 (수정 및 삭제 기능 포함 버전)
+ */
 function renderTable(data) {
     const tbody = document.getElementById('db-body');
     if (!tbody) return;
+    
     tbody.innerHTML = ''; 
 
-    data.forEach((car, index) => {
+    // 최신 데이터를 위로 올리고 싶다면 .reverse()를 사용하세요.
+    const displayData = [...data].reverse();
+
+    displayData.forEach((car, index) => {
+        // 실제 데이터의 인덱스를 추적하기 위해 계산 (reverse 사용 시 필요)
+        const actualIndex = data.length - 1 - index;
+        
         const row = `<tr>
-            <td class="clickable-name" onclick="openEditModal(${index})">📄 <strong>${car.name}</strong></td>
-            <td>${car.year}</td>
-            <td>${car.brand}</td>
-            <td>${car.type}</td>
-            <td>${car.fuel}</td>
-            <td>${car.size}</td>
-            <td>${car.price}</td>
-            <td><button class="btn-delete" onclick="deleteEntry(${index})">삭제</button></td>
+            <td class="clickable-name" onclick="openEditModal(${actualIndex})">
+                📄 <strong>${car.name || '-'}</strong>
+            </td>
+            <td>${car.year || '-'}</td>
+            <td>${car.brand || '-'}</td>
+            <td>${car.type || '-'}</td>
+            <td>${car.fuel || '-'}</td>
+            <td>${car.size || '-'}</td>
+            <td>${car.price || '0'}</td>
+            <td>${car.experience || '-'}</td> <td>${car.date || '-'}</td>       <td>
+                <button class="btn-delete" onclick="deleteEntry(${actualIndex})">삭제</button>
+            </td>
         </tr>`;
         tbody.innerHTML += row;
     });
