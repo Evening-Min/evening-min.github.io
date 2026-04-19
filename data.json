@@ -44,8 +44,7 @@
     "isPublished": true,
     "reviewPath": "reviews/1776605215696_Sonata.json",
     "imageFolder": "1776609368226_Sonata",
-    "postTitle": "여전히 평타 이상 하는 차",
-    "imageCount": 0
+    "postTitle": "여전히 평타 이상 하는 차"
   },
   {
     "name": "Casper",
@@ -97,6 +96,19 @@
     "size": "Mid-size",
     "price": "32,390,000",
     "experience": "렌터카/카셰어링",
+    "date": "2026-04-19",
+    "isPublished": false,
+    "reviewPath": ""
+  },
+  {
+    "name": "Spark S",
+    "year": "2014",
+    "brand": "Chevrolet",
+    "type": "Hatchback",
+    "fuel": "Gasoline",
+    "size": "Mini",
+    "price": "13,730,000",
+    "experience": "지인/친척 차량",
     "date": "2026-04-19",
     "isPublished": false,
     "reviewPath": ""
