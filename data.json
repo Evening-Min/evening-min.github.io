@@ -6,7 +6,9 @@
     "type": "Sedan",
     "fuel": "Electric",
     "size": "Mid-size",
-    "price": "55,000,000"
+    "price": "55,000,000",
+    "experience": "지인/친척 차량",
+    "date": "2026-04-19"
   },
   {
     "name": "2025 Hyundai Santa Fe",
