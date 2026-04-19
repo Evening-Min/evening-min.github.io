@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Review Detail | My Automotive Blog</title>
+    <link rel="stylesheet" href="common.css">
+    <link rel="stylesheet" href="review.css"> <link rel="stylesheet" href="post.css">   </head>
+<body>
+    <nav class="main-nav">
+        <ul>
+            <li><a href="index.html" class="nav-btn">Main</a></li>
+            <li><a href="reviews.html" class="nav-btn active">Car Review</a></li>
+            <li><a href="maintenance.html" class="nav-btn">Maintenance Log</a></li>
+        </ul>
+    </nav>
+
+    <main class="post-main-container">
+        <header class="post-header">
+            <h1 id="post-title">시승기 제목을 불러오는 중...</h1>
+            <p id="post-date" class="post-date"></p>
+        </header>
+
+        <section class="info-table-section">
+            <table class="car-info-table">
+                <tbody id="info-table-body">
+                    </tbody>
+            </table>
+        </section>
+
+        <section class="post-slider-container">
+            <div id="image-slider" class="image-slider">
+                <img id="current-slide" src="" alt="Car Image">
+                <button id="prev-btn" class="slider-arrow prev">&lt;</button>
+                <button id="next-btn" class="slider-arrow next">&gt;</button>
+            </div>
+            <div id="slide-counter" class="slide-counter">1 / 1</div>
+        </section>
+
+        <article id="post-content" class="post-content-body">
+            </article>
+
+        <div class="post-footer">
+            <a href="reviews.html" class="btn-back">← 목록으로 돌아가기</a>
+        </div>
+    </main>
+
+    <script src="post.js"></script>
+</body>
+</html>
