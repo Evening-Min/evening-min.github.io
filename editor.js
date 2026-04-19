@@ -1,6 +1,9 @@
-/**
- * editor.js
- * 기능: 시승기 본문 별도 JSON 저장, 이미지 다중 업로드, 메인 DB 경로 업데이트
+/*
+ * Name: Youngmin Jeon
+ * Date: April 14, 2024
+ * Section: IAB 6068
+ * This is javascript for the review editor page.
+ * It handles the logic for creating and editing review posts, including image uploads, content management, and syncing with GitHub.
  */
 
 let selectedFiles = []; 

@@ -1,4 +1,9 @@
-/* review.css */
+/*
+ * Name: Youngmin Jeon
+ * Date: April 14, 2024
+ * Section: IAB 6068
+ * This is css for the review page.
+ */
 
 /* 히어로 및 내비게이션 스타일은 index.css와 동일하게 유지되도록 설정 (필요시 index.css 내용 복사) */
 .hero-section {
@@ -85,8 +90,8 @@
 .post-card {
     background: #fff;
     border: 1px solid #eee; /* 인덱스 스타일의 얇은 테두리 */
-    border-radius: 12px; /* 8px ~ 15px 사이를 추천합니다 */
-    overflow: hidden;    /* [중요] 내부 이미지가 튀어나오지 않게 해줍니다 */
+    border-radius: 0; /* 인덱스 카드 스타일에 따라 각진 형태 선호 시 0, 아님 그대로 유지 */
+    overflow: hidden;
     transition: all 0.3s ease;
 }
 

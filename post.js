@@ -1,3 +1,10 @@
+/*
+ * Name: Youngmin Jeon
+ * Date: April 14, 2024
+ * Section: IAB 6068
+ * This is javascript for the review post viewer page.
+ */
+
 let currentImages = [];
 let currentIdx = 0;
 

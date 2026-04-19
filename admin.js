@@ -1,6 +1,9 @@
-/**
- * admin.js
- * 기능: 데이터 로드, 테이블 렌더링(1300px 대응), 수정/삭제, 에디터 이동
+/*
+ * Name: Youngmin Jeon
+ * Date: April 14, 2024
+ * Section: IAB 6068
+ * This is js for the administrator page.
+ * It handles data management, including adding, editing, and deleting car entries, as well as syncing changes with GitHub.
  */
 
 let currentFullData = []; // 전체 자동차 데이터를 담는 배열

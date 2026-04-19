@@ -1,3 +1,12 @@
+/*
+ * Name: Youngmin Jeon
+ * Date: April 14, 2024
+ * Section: IAB 6068
+ * This is css for the about page.
+ * I can't handle every page with one css file, so I made a separate css file for the about page.
+ * This is for the layout of the about page, not for the common styles like header and navigation.
+ */
+
 /* About 페이지 전용 레이아웃 (7:3 비율) */
 .about-layout {
     display: flex;

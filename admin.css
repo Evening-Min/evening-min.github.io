@@ -1,3 +1,11 @@
+/*
+ * Name: Youngmin Jeon
+ * Date: April 14, 2024
+ * Section: IAB 6068
+ * This is css for the administrator page.
+ * It includes styles for the admin dashboard, tables, modals, and the login page.
+ */
+
 /* 1. 레이아웃: 1300px 너비 확장 */
 .admin-main, .header-container {
     max-width: 1300px;

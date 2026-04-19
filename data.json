@@ -1,6 +1,6 @@
 [
   {
-    "name": "Model 3",
+    "name": "2022 Tesla Model 3",
     "year": "2022",
     "brand": "Tesla",
     "type": "Sedan",
@@ -8,38 +8,17 @@
     "size": "Mid-size",
     "price": "55,000,000",
     "experience": "지인/친척 차량",
-    "date": "2025-05-19",
-    "postTitle": "전자레인지에 바퀴 추가",
-    "reviewPath": "reviews/1776597050987_Model_3.json",
-    "imageFolder": "1776601705091_Model_3",
-    "isPublished": true,
-    "imageCount": 3
+    "date": "2026-04-19"
   },
   {
-    "name": "Santa Fe",
+    "name": "2025 Hyundai Santa Fe",
     "year": "2025",
     "brand": "Hyundai",
     "type": "SUV",
     "fuel": "Gasoline",
     "size": "Mid-size",
-    "price": "49,900,000",
-    "experience": "본인/가족 차량",
-    "date": "2026-04-19",
-    "isPublished": false,
-    "reviewPath": "",
-    "imageFolder": ""
-  },
-  {
-    "name": "Sonata",
-    "year": "2024",
-    "brand": "Hyundai",
-    "type": "Sedan",
-    "fuel": "Gasoline",
-    "size": "Mid-size",
-    "price": "34,000,000",
-    "experience": "렌터카/카셰어링",
-    "date": "2026-04-19",
-    "isPublished": false,
-    "reviewPath": ""
+    "price": "45,000,000",
+    "experience": "지인/친척 차량",
+    "date": "2026-04-19"
   }
 ]

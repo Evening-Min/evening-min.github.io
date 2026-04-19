@@ -1,3 +1,10 @@
+/*
+ * Name: Youngmin Jeon
+ * Date: April 14, 2024
+ * Section: IAB 6068
+ * This is javascript for the authentication of administrator page.
+ */
+
 // 페이지 로드 시 즉시 로그인 여부 검사
 (function checkAuth() {
     if (sessionStorage.getItem("isLoggedIn") !== "true") {

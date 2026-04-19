@@ -1,4 +1,10 @@
-// login.js 수정본
+/*
+ * Name: Youngmin Jeon
+ * Date: April 14, 2024
+ * Section: IAB 6068
+ * This is javascript for the login page
+ */
+
 document.addEventListener('DOMContentLoaded', () => {
     // [추가] 이미 로그인된 상태라면 로그인 페이지를 건너뛰고 바로 어드민으로 이동
     if (sessionStorage.getItem("isLoggedIn") === "true") {
