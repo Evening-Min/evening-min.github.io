@@ -92,3 +92,107 @@
     justify-content: flex-end;
     margin-top: 30px;
 }
+/* --- [디자인 보완: 버튼 및 레이아웃] --- */
+
+/* 1. 로그아웃 버튼 (상단 헤더 텍스트 스타일) */
+.btn-logout-link {
+    background: none;
+    border: none;
+    color: #888;
+    font-size: 0.9rem;
+    cursor: pointer;
+    padding: 5px 10px;
+    transition: color 0.2s;
+}
+
+.btn-logout-link:hover {
+    color: #333;
+    text-decoration: underline;
+}
+
+/* 2. 테이블 내 관리 버튼들 (시승기 작성/삭제) */
+.admin-actions {
+    display: flex;
+    gap: 8px; /* 버튼 사이 간격 */
+    align-items: center;
+}
+
+/* 시승기 작성/수정 버튼 */
+.btn-review {
+    background-color: #f0f7ff;
+    color: #007aff;
+    border: 1px solid #c2e0ff;
+    padding: 6px 12px;
+    border-radius: 6px;
+    font-size: 12px;
+    font-weight: 600;
+    cursor: pointer;
+    white-space: nowrap;
+    transition: all 0.2s;
+}
+
+.btn-review:hover {
+    background-color: #007aff;
+    color: white;
+}
+
+/* 삭제 버튼 */
+.btn-delete {
+    background-color: #fff1f0;
+    color: #ff4d4f;
+    border: 1px solid #ffa39e;
+    padding: 6px 12px;
+    border-radius: 6px;
+    font-size: 12px;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.btn-delete:hover {
+    background-color: #ff4d4f;
+    color: white;
+}
+
+/* 3. 모달 내부 폼 레이아웃 보완 */
+.form-row {
+    margin-bottom: 15px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.form-row label {
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: #555;
+}
+
+.form-row input, .form-row select {
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    font-size: 0.95rem;
+}
+
+/* 4. 페이지네이션 버튼 디자인 */
+.pagination {
+    margin-top: 30px;
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+}
+
+.pagination button {
+    padding: 8px 14px;
+    border: 1px solid #eee;
+    background: white;
+    cursor: pointer;
+    border-radius: 6px;
+    transition: all 0.2s;
+}
+
+.pagination button.active {
+    background: #1976d2;
+    color: white;
+    border-color: #1976d2;
+}

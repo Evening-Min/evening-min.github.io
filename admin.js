@@ -110,7 +110,11 @@ function formatPrice(input) {
 /**
  * [데이터] 저장 로직 (GitHub API PUT)
  */
+/**
+ * 데이터 제출 처리 (등록/수정 공용)
+ */
 async function handleDataSubmission() {
+    // 폼 값 가져오기
     const name = document.getElementById('name').value;
     const year = document.getElementById('year').value;
     const brand = document.getElementById('brand').value;
@@ -126,24 +130,39 @@ async function handleDataSubmission() {
         return;
     }
 
-    const newEntry = { name, year, brand, type, fuel, size, price, experience, date: today };
+    // 저장 데이터 객체 생성
+    const entry = { name, year, brand, type, fuel, size, price, experience, date: today };
     
-    // 버튼 비활성화
-    const btnSave = document.getElementById('btn-next');
-    btnSave.disabled = true;
-    btnSave.innerText = "저장 중...";
+    // 만약 수정 모드라면 기존의 발행 정보(isPublished, reviewPath 등)를 유지해야 함
+    if (isEditMode && editIndex !== null) {
+        const originalData = currentFullData[editIndex];
+        entry.isPublished = originalData.isPublished || false;
+        entry.reviewPath = originalData.reviewPath || "";
+        entry.imageFolder = originalData.imageFolder || "";
+    }
+
+    const btnNext = document.getElementById('btn-next');
+    btnNext.disabled = true;
+    btnNext.innerText = "저장 중...";
 
     try {
-        currentFullData.push(newEntry);
-        await syncWithGitHub("Add new car to database", currentFullData);
+        if (isEditMode && editIndex !== null) {
+            currentFullData[editIndex] = entry;
+        } else {
+            currentFullData.push(entry);
+        }
+
+        await syncWithGitHub(`Update DB: ${isEditMode ? 'Edit' : 'Add'} ${name}`, currentFullData);
+        
+        // 성공 시 초기화
         modal.style.display = 'none';
         carForm.reset();
-        await loadLocalData();
+        await loadLocalData(); // 데이터 다시 불러오기
     } catch (e) {
-        alert("저장 실패: " + e.message);
+        alert("저장에 실패했습니다.");
     } finally {
-        btnSave.disabled = false;
-        btnSave.innerText = "저장";
+        btnNext.disabled = false;
+        btnNext.innerText = isEditMode ? "수정사항 저장" : "데이터 저장 및 커밋";
     }
 }
 
