@@ -86,5 +86,18 @@
     "reviewPath": "",
     "imageFolder": "",
     "postTitle": ""
+  },
+  {
+    "name": "Staria (9인승)",
+    "year": "2022",
+    "brand": "Hyundai",
+    "type": "Minivan",
+    "fuel": "Diesel",
+    "size": "Mid-size",
+    "price": "32,390,000",
+    "experience": "렌터카/카셰어링",
+    "date": "2026-04-19",
+    "isPublished": false,
+    "reviewPath": ""
   }
 ]
