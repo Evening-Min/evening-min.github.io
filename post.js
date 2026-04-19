@@ -47,11 +47,12 @@ document.addEventListener('DOMContentLoaded', async () => {
     document.getElementById('next-btn').onclick = () => moveSlide(1);
 });
 
+// post.js 내의 renderInfoTable 호출 부분
 function renderInfoTable(data) {
     const tbody = document.getElementById('info-table-body');
-    
-    // 데이터 구조에 따라 매칭 (브랜드, 모델명 등은 data.json에서 관리하므로 
-    // 발행 시 reviewData에 함께 넣어주는 것이 가장 좋습니다)
+    if (!tbody) return;
+
+    // editor.js에서 저장한 carDetails를 가져옴
     const info = data.carDetails || {}; 
     const labels = { 
         brand: '브랜드', 
@@ -62,14 +63,10 @@ function renderInfoTable(data) {
     };
     
     let html = '';
-    // 만약 개별 JSON에 정보가 없다면 표시할 기본 문구
-    const noInfo = "정보 없음";
-
-    html += `<tr><th>브랜드</th><td>${info.brand || noInfo}</td></tr>`;
-    html += `<tr><th>연식</th><td>${info.year || noInfo}</td></tr>`;
-    html += `<tr><th>모델명</th><td>${info.name || noInfo}</td></tr>`;
-    html += `<tr><th>연료</th><td>${info.fuel || noInfo}</td></tr>`;
-    html += `<tr><th>가격</th><td>${info.price || noInfo}</td></tr>`;
+    // 정해진 라벨 순서대로 표 구성
+    Object.keys(labels).forEach(key => {
+        html += `<tr><th>${labels[key]}</th><td>${info[key] || '정보 없음'}</td></tr>`;
+    });
     
     tbody.innerHTML = html;
 }

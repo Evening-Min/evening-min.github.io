@@ -113,8 +113,16 @@ async function handlePublish() {
         const reviewData = {
             title: title,
             content: content,
+            // [중요] 차량 상세 정보를 포스트 데이터에 직접 포함
+            carDetails: {
+                brand: car.brand,
+                year: car.year,
+                name: car.name,
+                fuel: car.fuel || "정보 없음",
+                price: car.price || "정보 없음"
+            },
             imageFolder: folderInfo.folderName,
-            imageCount: folderInfo.imageCount, // 사진 슬라이더용
+            imageCount: folderInfo.imageCount,
             updatedAt: new Date().toISOString()
         };
         const reviewPath = `reviews/${timestamp}_${carSafeName}.json`;
