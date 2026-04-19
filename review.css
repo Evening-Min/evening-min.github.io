@@ -62,6 +62,7 @@
 .section-title {
     font-size: 1.8rem;
     font-weight: 700;
+    margin-top: 20px;
     margin-bottom: 40px;
     text-align: center;
     position: relative;
@@ -90,7 +91,7 @@
 .post-card {
     background: #fff;
     border: 1px solid #eee; /* 인덱스 스타일의 얇은 테두리 */
-    border-radius: 0; /* 인덱스 카드 스타일에 따라 각진 형태 선호 시 0, 아님 그대로 유지 */
+    border-radius: 12; /* 인덱스 카드 스타일에 따라 각진 형태 선호 시 0, 아님 그대로 유지 */
     overflow: hidden;
     transition: all 0.3s ease;
 }
