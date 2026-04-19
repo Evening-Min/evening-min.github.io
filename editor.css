@@ -95,3 +95,68 @@
     margin-bottom: 30px;
     outline: none;
 }
+/* 상단 차량 정보 배지 */
+.target-car-badge {
+    background: #f0f7ff;
+    padding: 10px 20px;
+    border-radius: 50px;
+    display: inline-block;
+    margin-bottom: 25px;
+    border: 1px solid #c2e0ff;
+}
+
+#target-car-info {
+    color: #007aff;
+    font-weight: 600;
+    font-size: 0.95rem;
+}
+
+/* 하단 버튼 영역 중앙 정렬 */
+.editor-actions-center {
+    margin-top: 50px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+    padding-top: 30px;
+    border-top: 1px solid #eee;
+}
+
+.btn-primary-large {
+    background-color: #1976d2;
+    color: white;
+    border: none;
+    padding: 16px 60px;
+    border-radius: 50px;
+    font-size: 1.1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s;
+    box-shadow: 0 4px 15px rgba(25, 118, 210, 0.2);
+}
+
+.btn-primary-large:hover {
+    background-color: #1565c0;
+    transform: translateY(-2px);
+}
+
+.btn-back-link {
+    color: #888;
+    text-decoration: none;
+    font-size: 0.95rem;
+}
+
+.btn-back-link:hover {
+    color: #333;
+    text-decoration: underline;
+}
+
+/* 이미지 업로드 영역 다듬기 */
+.editor-assets {
+    background: #fafafa;
+    border: 1px dashed #ccc;
+    padding: 30px;
+    text-align: center;
+    margin-bottom: 30px;
+    border-radius: 12px;
+}

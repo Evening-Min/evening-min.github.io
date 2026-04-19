@@ -4,20 +4,15 @@
     <meta charset="UTF-8">
     <title>Editor | 시승기 작성</title>
     <link rel="stylesheet" href="common.css">
-    <link rel="stylesheet" href="editor.css"> </head>
+    <link rel="stylesheet" href="editor.css">
+    <script src="auth.js"></script>
+</head>
 <body>
-    <header class="admin-header">
-        <div class="header-container">
-            <h1>New Review Editor</h1>
-            <button onclick="location.href='admin.html'" class="btn-logout-link">← 관리자로 돌아가기</button>
-        </div>
-    </header>
-
     <main class="editor-main">
         <div class="editor-container">
-            <h3 id="target-car-info" style="color: #555; margin-bottom: 20px; font-weight: 500;">
-                차량 정보를 불러오는 중...
-            </h3>
+            <div class="target-car-badge">
+                <span id="target-car-info">차량 정보를 불러오는 중...</span>
+            </div>
 
             <section class="editor-meta">
                 <input type="text" id="post-title" placeholder="시승기 제목을 입력하세요" class="input-title">
@@ -27,7 +22,7 @@
                 <div class="upload-control">
                     <button type="button" id="btn-add-image" class="btn-new-sky">📸 이미지 추가</button>
                     <input type="file" id="file-input" multiple accept="image/*" style="display: none;">
-                    <span id="file-count">선택된 파일 없음</span>
+                    <span id="file-count">선택된 이미지 없음</span>
                 </div>
             </section>
 
@@ -36,8 +31,8 @@
             </section>
 
             <div class="editor-actions-center">
-                <button id="btn-save-post" class="btn-new-sky">시승기 발행하기</button>
-                <button onclick="location.href='admin.html'" class="btn-back-link">관리자로 돌아가기</button>
+                <button id="btn-save-post" class="btn-primary-large">시승기 발행하기</button>
+                <a href="admin.html" class="btn-back-link">취소하고 관리자로 돌아가기</a>
             </div>
         </div>
     </main>
