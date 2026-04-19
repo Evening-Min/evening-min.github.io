@@ -16,14 +16,14 @@ document.addEventListener('DOMContentLoaded', () => {
     const btnSave = document.getElementById('btn-next');
     carForm = document.getElementById('car-form');
 
+    // 1. 새 자동차 추가 버튼 (수정된 부분)
     if (btnOpen) {
         btnOpen.onclick = () => {
-            // [보완] 새 추가 시 수정 모드 확실히 해제
-            isEditMode = false;
-            editIndex = null;
+            isEditMode = false; // [필수] 추가 모드로 초기화
+            editIndex = null;   // [필수] 인덱스 초기화
             carForm.reset();
-            document.querySelector('.modal-header h3').innerText = "자동차 정보 입력";
-            document.getElementById('btn-next').innerText = "저장";
+            document.querySelector('.modal-header h3').innerText = "새 자동차 정보 입력";
+            document.getElementById('btn-next').innerText = "데이터 저장 및 커밋";
             modal.style.display = 'block';
         };
     }
@@ -148,18 +148,17 @@ function formatPrice(input) {
  * 데이터 제출 처리 (등록/수정 공용)
  */
 async function handleDataSubmission() {
-    const name = document.getElementById('name').value.trim();
+    const name = document.getElementById('name').value;
     const year = document.getElementById('year').value;
     
-    // 필수값 검증 강화
     if (!name || !year) {
-        alert("자동차 이름과 연식은 필수 입력 사항입니다.");
+        alert("이름과 연식은 필수입니다.");
         return;
     }
 
     const btnNext = document.getElementById('btn-next');
     btnNext.disabled = true;
-    btnNext.innerText = "GitHub 동기화 중...";
+    btnNext.innerText = "저장 중...";
 
     try {
         const entry = {
@@ -175,7 +174,7 @@ async function handleDataSubmission() {
         };
 
         if (isEditMode && editIndex !== null) {
-            // 수정 시 기존의 메타데이터(시승기 여부 등)를 완벽히 계승
+            // [수정 모드] 기존의 시승기 상태와 경로를 유지하며 업데이트
             const original = currentFullData[editIndex];
             entry.isPublished = original.isPublished || false;
             entry.reviewPath = original.reviewPath || "";
@@ -184,20 +183,20 @@ async function handleDataSubmission() {
             
             currentFullData[editIndex] = entry;
         } else {
-            // 새 데이터 추가
+            // [추가 모드] 새 데이터는 시승기 정보 없이 깔끔하게 추가
+            entry.isPublished = false;
+            entry.reviewPath = "";
             currentFullData.push(entry);
         }
 
-        // GitHub 서버에 반영
         await syncWithGitHub(`DB Update: ${isEditMode ? 'Edit' : 'Add'} ${name}`, currentFullData);
         
         modal.style.display = 'none';
-        isEditMode = false; // 완료 후 모드 초기화
+        isEditMode = false; // 완료 후 안전하게 초기화
         editIndex = null;
-        await loadLocalData(); 
-        alert("성공적으로 반영되었습니다.");
+        await loadLocalData();
     } catch (e) {
-        alert("GitHub 저장 중 오류가 발생했습니다: " + e.message);
+        alert("오류 발생: " + e.message);
     } finally {
         btnNext.disabled = false;
         btnNext.innerText = "저장";
