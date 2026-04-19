@@ -1,0 +1,148 @@
+/* review.css */
+
+/* 히어로 및 내비게이션 스타일은 index.css와 동일하게 유지되도록 설정 (필요시 index.css 내용 복사) */
+.hero-section {
+    position: relative;
+    width: 100%;
+    height: 45vh; /* 인덱스와 동일 비율 */
+    overflow: hidden;
+}
+
+.hero-photo {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+
+    object-position: center 85%
+}
+
+.hero-text-container {
+    position: absolute;
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    color: white;
+    text-shadow: 0 2px 10px rgba(0,0,0,0.5);
+}
+
+/* 1. 내비게이션: 테두리 제거 및 글자 중심 디자인 */
+/* index.css의 네비게이션 로직을 그대로 이식 */
+.main-nav {
+    background-color: #fff;
+    display: flex;
+    justify-content: center;
+    padding: 15px 0;
+    border-bottom: 1px solid #eee; /* 인덱스에 라인이 있다면 추가 */
+}
+
+.main-nav ul {
+    display: flex;
+    justify-content: center;
+    list-style: none;
+    gap: 30px;
+}
+
+.nav-btn {
+    font-size: 1rem;
+    font-weight: 700;
+    color: #555; /* 평상시 약간 흐린 회색 */
+    transition: color 0.3s ease;
+}
+
+/* 호버링 시 인덱스와 동일한 색상 처리 */
+.nav-btn:hover{
+    color: #2383E2;
+}
+
+/* 3. 섹션 타이틀: 인덱스 디자인 계승 */
+.section-title {
+    font-size: 1.8rem;
+    font-weight: 700;
+    margin-bottom: 40px;
+    text-align: center;
+    position: relative;
+    padding-bottom: 15px;
+}
+
+.section-title::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 50px;
+    height: 3px;
+    background-color: #1a1a1a;
+}
+
+/* 4. 카드 디자인: 인덱스 post-card 완벽 복제 */
+.post-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 30px;
+    margin-top: 20px;
+}
+
+.post-card {
+    background: #fff;
+    border: 1px solid #eee; /* 인덱스 스타일의 얇은 테두리 */
+    border-radius: 0; /* 인덱스 카드 스타일에 따라 각진 형태 선호 시 0, 아님 그대로 유지 */
+    overflow: hidden;
+    transition: all 0.3s ease;
+}
+
+.post-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0,0,0,0.08);
+}
+
+.card-image-container {
+    width: 100%;
+    height: 200px;
+    background: #f0f0f0;
+}
+
+.card-image-container img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.card-content { padding: 20px; }
+
+.card-meta {
+    font-size: 0.85rem;
+    color: #2383e2;
+    font-weight: 600;
+    margin-bottom: 8px;
+}
+
+.card-title {
+    font-size: 1.2rem;
+    font-weight: 700;
+    line-height: 1.4;
+    color: #333;
+}
+
+/* 페이지네이션 */
+.pagination {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 40px;
+}
+
+.pagination button {
+    padding: 8px 16px;
+    border: 1px solid #eee;
+    background: white;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.pagination button.active {
+    background: #1a1a1a;
+    color: white;
+    border-color: #1a1a1a;
+}
+
