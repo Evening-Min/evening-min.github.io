@@ -97,22 +97,24 @@ async function handlePublish() {
     btnSave.disabled = true;
     btnSave.innerText = "발행 중 (잠시만 기다려주세요...)";
 
+    // handlePublish 함수 중간 부분
     try {
         const car = currentAllData[targetCarIndex];
         const timestamp = new Date().getTime();
         const carSafeName = car.name.replace(/\s+/g, '_');
 
-        // 1. 이미지 업로드 (폴더 생성)
-        let folderName = car.imageFolder || ""; 
+        // 1. 이미지 업로드 시 folderName과 개수를 함께 받아옴
+        let folderInfo = { folderName: car.imageFolder || "", imageCount: car.imageCount || 0 };
         if (selectedFiles.length > 0) {
-            folderName = await uploadImagesToGitHub(carSafeName, timestamp);
+            folderInfo = await uploadImagesToGitHub(carSafeName, timestamp);
         }
 
-        // 2. 시승기 본문 별도 JSON 파일로 저장 (reviews/ 폴더)
+        // 2. 시승기 본문 JSON에 이미지 정보 기록
         const reviewData = {
             title: title,
             content: content,
-            imageFolder: folderName,
+            imageFolder: folderInfo.folderName,
+            imageCount: folderInfo.imageCount, // 사진 슬라이더용
             updatedAt: new Date().toISOString()
         };
         const reviewPath = `reviews/${timestamp}_${carSafeName}.json`;
@@ -141,9 +143,13 @@ async function handlePublish() {
 /**
  * 다중 이미지 업로드 함수
  */
+/**
+ * 다중 이미지 업로드 함수 (자동 번호 매기기 버전)
+ */
 async function uploadImagesToGitHub(carName, timestamp) {
     const folderName = `${timestamp}_${carName}`;
-    
+    let fileIndex = 1; // 1번부터 시작하는 카운터
+
     for (const file of selectedFiles) {
         const reader = new FileReader();
         const base64 = await new Promise((resolve) => {
@@ -151,10 +157,20 @@ async function uploadImagesToGitHub(carName, timestamp) {
             reader.readAsDataURL(file);
         });
 
-        const path = `images/${folderName}/${file.name}`;
-        await uploadToGithub(path, base64, `Upload Img: ${file.name}`, true);
+        // 원본 확장자를 유지하고 싶다면 file.name에서 추출, 
+        // 일관성을 위해 소문자 .jpg로 통일하고 싶다면 'jpg'로 고정할 수 있습니다.
+        const extension = file.name.split('.').pop().toLowerCase(); 
+        const fileName = `${fileIndex}.${extension}`; 
+        const path = `images/${folderName}/${fileName}`;
+
+        await uploadToGithub(path, base64, `Upload Img: ${fileName}`, true);
+        
+        fileIndex++; // 다음 파일은 2, 3, 4... 순으로 증가
     }
-    return folderName;
+    
+    // 나중에 post.js에서 슬라이더를 만들 때 몇 장인지 알 수 있도록 
+    // 총 이미지 개수를 리턴하거나 어딘가에 저장하면 좋습니다.
+    return { folderName, imageCount: fileIndex - 1 };
 }
 
 /**
