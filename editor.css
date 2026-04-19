@@ -56,10 +56,6 @@
     gap: 15px;
 }
 
-#file-count {
-    font-size: 0.9rem;
-    color: #666;
-}
 /* 하단 버튼 중앙 정렬 */
 .editor-actions-center {
     display: flex;
@@ -159,4 +155,61 @@
     text-align: center;
     margin-bottom: 30px;
     border-radius: 12px;
+}
+/* editor.css에 추가 또는 수정 */
+
+.editor-assets {
+    background: #fdfdfd;
+    border: 1px dashed #d1d1d1;
+    padding: 40px;
+    text-align: center;
+    margin-bottom: 30px;
+    border-radius: 16px;
+    transition: all 0.3s ease;
+}
+
+.upload-control {
+    display: flex;
+    flex-direction: column; /* 세로 배치로 변경하여 더 깔끔하게 */
+    align-items: center;
+    gap: 15px;
+}
+
+/* 동글동글한 카메라 버튼 스타일 */
+.btn-camera-round {
+    background-color: #ffffff;
+    color: #444;
+    border: 1.5px solid #e0e0e0;
+    padding: 12px 28px;
+    border-radius: 50px; /* 완전한 라운드 */
+    font-size: 0.95rem;
+    font-weight: 600;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 0 2px 6px rgba(0,0,0,0.03);
+}
+
+.btn-camera-round .icon {
+    font-size: 1.2rem;
+}
+
+.btn-camera-round:hover {
+    background-color: #f8f9fa;
+    border-color: #1976d2;
+    color: #1976d2;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+}
+
+.btn-camera-round:active {
+    transform: translateY(0);
+}
+
+#file-count {
+    font-size: 0.85rem;
+    color: #888;
+    font-weight: 500;
 }
