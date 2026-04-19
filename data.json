@@ -48,13 +48,13 @@
     "imageCount": 1
   },
   {
-    "name": "Casper",
+    "name": "Staria (9인승)",
     "year": "2022",
     "brand": "Hyundai",
-    "type": "SUV",
-    "fuel": "Gasoline",
-    "size": "Mini",
-    "price": "15,900,000",
+    "type": "Minivan",
+    "fuel": "Diesel",
+    "size": "Mid-size",
+    "price": "32,390,000",
     "experience": "렌터카/카셰어링",
     "date": "2026-04-19",
     "isPublished": false,
