@@ -203,7 +203,7 @@ function renderTable(displayData) {
         
         const row = `<tr>
             <td class="clickable-name" onclick="openEditModal(${actualIndex})">
-                📄 <strong>${car.name}</strong>
+                <strong>${car.name}</strong>
             </td>
             <td>${car.year}</td>
             <td>${car.brand}</td>
