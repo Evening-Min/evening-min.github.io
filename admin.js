@@ -16,6 +16,18 @@ document.addEventListener('DOMContentLoaded', () => {
     const btnSave = document.getElementById('btn-next');
     carForm = document.getElementById('car-form');
 
+    if (btnOpen) {
+        btnOpen.onclick = () => {
+            // [보완] 새 추가 시 수정 모드 확실히 해제
+            isEditMode = false;
+            editIndex = null;
+            carForm.reset();
+            document.querySelector('.modal-header h3').innerText = "자동차 정보 입력";
+            document.getElementById('btn-next').innerText = "저장";
+            modal.style.display = 'block';
+        };
+    }
+
     // 1. 새 자동차 추가 모달 열기
     if (btnOpen) {
         btnOpen.onclick = () => {
@@ -99,15 +111,15 @@ function openEditModal(index) {
     editIndex = index;
     const car = currentFullData[index];
 
-    // 모달 필드에 기존 데이터 채우기
+    // [보완] 각 필드에 안전하게 값 대입
     document.getElementById('name').value = car.name || '';
     document.getElementById('year').value = car.year || '';
-    document.getElementById('brand').value = car.brand || '';
-    document.getElementById('type').value = car.type || '';
-    document.getElementById('fuel').value = car.fuel || '';
-    document.getElementById('size').value = car.size || '';
+    document.getElementById('brand').value = car.brand || ''; // select value 매칭
+    document.getElementById('type').value = car.type || 'Sedan';
+    document.getElementById('fuel').value = car.fuel || 'Gasoline';
+    document.getElementById('size').value = car.size || 'Compact';
     document.getElementById('price').value = car.price || '';
-    document.getElementById('experience').value = car.experience || '';
+    document.getElementById('experience').value = car.experience || '본인/가족 차량';
 
     document.querySelector('.modal-header h3').innerText = "자동차 정보 수정";
     document.getElementById('btn-next').innerText = "수정사항 저장";
@@ -136,55 +148,59 @@ function formatPrice(input) {
  * 데이터 제출 처리 (등록/수정 공용)
  */
 async function handleDataSubmission() {
-    // 폼 값 가져오기
-    const name = document.getElementById('name').value;
+    const name = document.getElementById('name').value.trim();
     const year = document.getElementById('year').value;
-    const brand = document.getElementById('brand').value;
-    const type = document.getElementById('type').value;
-    const fuel = document.getElementById('fuel').value;
-    const size = document.getElementById('size').value;
-    const price = document.getElementById('price').value;
-    const experience = document.getElementById('experience').value;
-    const today = new Date().toISOString().split('T')[0];
-
-    if (!name || !year) {
-        alert("자동차 이름과 연식은 필수입니다.");
-        return;
-    }
-
-    // 저장 데이터 객체 생성
-    const entry = { name, year, brand, type, fuel, size, price, experience, date: today };
     
-    // 만약 수정 모드라면 기존의 발행 정보(isPublished, reviewPath 등)를 유지해야 함
-    if (isEditMode && editIndex !== null) {
-        const originalData = currentFullData[editIndex];
-        entry.isPublished = originalData.isPublished || false;
-        entry.reviewPath = originalData.reviewPath || "";
-        entry.imageFolder = originalData.imageFolder || "";
+    // 필수값 검증 강화
+    if (!name || !year) {
+        alert("자동차 이름과 연식은 필수 입력 사항입니다.");
+        return;
     }
 
     const btnNext = document.getElementById('btn-next');
     btnNext.disabled = true;
-    btnNext.innerText = "저장 중...";
+    btnNext.innerText = "GitHub 동기화 중...";
 
     try {
+        const entry = {
+            name: name,
+            year: year,
+            brand: document.getElementById('brand').value,
+            type: document.getElementById('type').value,
+            fuel: document.getElementById('fuel').value,
+            size: document.getElementById('size').value,
+            price: document.getElementById('price').value,
+            experience: document.getElementById('experience').value,
+            date: new Date().toISOString().split('T')[0]
+        };
+
         if (isEditMode && editIndex !== null) {
+            // 수정 시 기존의 메타데이터(시승기 여부 등)를 완벽히 계승
+            const original = currentFullData[editIndex];
+            entry.isPublished = original.isPublished || false;
+            entry.reviewPath = original.reviewPath || "";
+            entry.imageFolder = original.imageFolder || "";
+            entry.postTitle = original.postTitle || "";
+            
             currentFullData[editIndex] = entry;
         } else {
+            // 새 데이터 추가
             currentFullData.push(entry);
         }
 
-        await syncWithGitHub(`Update DB: ${isEditMode ? 'Edit' : 'Add'} ${name}`, currentFullData);
+        // GitHub 서버에 반영
+        await syncWithGitHub(`DB Update: ${isEditMode ? 'Edit' : 'Add'} ${name}`, currentFullData);
         
-        // 성공 시 초기화
         modal.style.display = 'none';
-        carForm.reset();
-        await loadLocalData(); // 데이터 다시 불러오기
+        isEditMode = false; // 완료 후 모드 초기화
+        editIndex = null;
+        await loadLocalData(); 
+        alert("성공적으로 반영되었습니다.");
     } catch (e) {
-        alert("저장에 실패했습니다.");
+        alert("GitHub 저장 중 오류가 발생했습니다: " + e.message);
     } finally {
         btnNext.disabled = false;
-        btnNext.innerText = isEditMode ? "수정사항 저장" : "데이터 저장 및 커밋";
+        btnNext.innerText = "저장";
     }
 }
 
