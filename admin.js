@@ -5,6 +5,8 @@
 
 let currentFullData = []; // 전체 자동차 데이터를 담는 배열
 let modal, carForm;
+let isEditMode = false; // 수정 모드 여부
+let editIndex = null;   // 수정 중인 인덱스
 
 document.addEventListener('DOMContentLoaded', () => {
     // HTML 요소 할당
@@ -58,19 +60,16 @@ async function loadLocalData() {
 /**
  * [디자인] 테이블 렌더링 (1300px 너비에 최적화된 10개 열 구조)
  */
+// 1. 테이블 렌더링 함수 수정
 function renderTable(data) {
     const tbody = document.getElementById('db-body');
     if (!tbody) return;
     tbody.innerHTML = '';
 
-    // 최신 데이터를 위로 보여주기 위해 역순 출력
     const displayData = [...data].reverse();
 
     displayData.forEach((car, index) => {
-        // 원본 배열에서의 실제 인덱스 계산
         const actualIndex = data.length - 1 - index;
-        
-        // 시승기 발행 여부에 따른 버튼 텍스트 변경
         const reviewBtnText = car.isPublished ? "📝 시승기 수정" : "➕ 시승기 작성";
         
         const row = `<tr>
@@ -83,13 +82,36 @@ function renderTable(data) {
             <td>${car.fuel || '-'}</td>
             <td>${car.size || '-'}</td>
             <td>${car.price || '0'}</td>
-            <td>${car.experience || '-'}</td> <td>${car.date || '-'}</td>       <td class="admin-actions">
+            <td>${car.experience || '-'}</td> 
+            <td>${car.date || '-'}</td>
+            <td class="admin-actions">
                 <button class="btn-review" onclick="goToEditor(${actualIndex})">${reviewBtnText}</button>
                 <button class="btn-delete" onclick="deleteEntry(${actualIndex})">삭제</button>
             </td>
         </tr>`;
         tbody.innerHTML += row;
     });
+}
+
+// 2. 누락된 수정 모달 오픈 함수 추가 (이게 없어서 클릭이 안 됐던 것입니다)
+function openEditModal(index) {
+    isEditMode = true;
+    editIndex = index;
+    const car = currentFullData[index];
+
+    // 모달 필드에 기존 데이터 채우기
+    document.getElementById('name').value = car.name || '';
+    document.getElementById('year').value = car.year || '';
+    document.getElementById('brand').value = car.brand || '';
+    document.getElementById('type').value = car.type || '';
+    document.getElementById('fuel').value = car.fuel || '';
+    document.getElementById('size').value = car.size || '';
+    document.getElementById('price').value = car.price || '';
+    document.getElementById('experience').value = car.experience || '';
+
+    document.querySelector('.modal-header h3').innerText = "자동차 정보 수정";
+    document.getElementById('btn-next').innerText = "수정사항 저장";
+    modal.style.display = 'block';
 }
 
 /**
