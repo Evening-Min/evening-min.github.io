@@ -169,3 +169,33 @@
     height: 100%;
     object-fit: cover;
 }
+/* review.css 추가 내용*/
+
+.content-container {
+    max-width: 1200px; /* 요청하신 대로 1200px로 조정 */
+    margin: 0 auto;    /* 중앙 정렬로 좌우 마진 확보 */
+    padding: 0 40px;   /* 양 끝이 화면에 붙지 않도록 내부 여백 추가 */
+}
+
+.post-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 30px;
+    margin-top: 40px;
+    margin-bottom: 80px;
+}
+
+/* 카드 내 텍스트 스타일 수정 */
+.card-meta {
+    font-size: 0.9rem;
+    color: #2383e2;
+    font-weight: 600;
+    margin-bottom: 8px;
+    display: flex;
+    gap: 8px; /* 정보 사이 간격 */
+}
+
+/* 대괄호 없이 깔끔하게 보이기 위한 설정 */
+.meta-item {
+    position: relative;
+}
