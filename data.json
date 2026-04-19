@@ -46,5 +46,18 @@
     "postTitle": "여전히 평타 이상 하는 차",
     "imageFolder": "1776609368226_Sonata",
     "imageCount": 1
+  },
+  {
+    "name": "Casper",
+    "year": "2022",
+    "brand": "Hyundai",
+    "type": "SUV",
+    "fuel": "Gasoline",
+    "size": "Mini",
+    "price": "15,900,000",
+    "experience": "렌터카/카셰어링",
+    "date": "2026-04-19",
+    "isPublished": false,
+    "reviewPath": ""
   }
 ]
