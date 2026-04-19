@@ -1,49 +1,114 @@
 /**
  * admin.js
- * 기능: 데이터 로드, GitHub API 연동(추가/수정/삭제), 모달 제어
+ * 기능: 데이터 로드, 테이블 렌더링(1300px 대응), 수정/삭제, 에디터 이동
  */
 
-let modal, btnOpen, btnCancel, btnNext, carForm;
-let isEditMode = false; // 현재 모달이 수정 모드인지 확인
-let editIndex = null;   // 수정 중인 데이터의 인덱스
-let currentFullData = []; // 전체 데이터를 담을 배열
+let currentFullData = []; // 전체 자동차 데이터를 담는 배열
+let modal, carForm;
 
 document.addEventListener('DOMContentLoaded', () => {
+    // HTML 요소 할당
     modal = document.getElementById('modal-container');
-    btnOpen = document.getElementById('btn-open-modal');
-    btnCancel = document.getElementById('btn-cancel');
-    btnNext = document.getElementById('btn-next');
+    const btnOpen = document.getElementById('btn-open-modal');
+    const btnCancel = document.getElementById('btn-cancel');
+    const btnSave = document.getElementById('btn-next');
     carForm = document.getElementById('car-form');
 
-    // 1. 새로 만들기 버튼 (등록 모드)
+    // 1. 새 자동차 추가 모달 열기
     if (btnOpen) {
         btnOpen.onclick = () => {
-            isEditMode = false;
-            editIndex = null;
             carForm.reset();
-            document.querySelector('.modal-header h3').innerText = "새 자동차 정보 입력";
-            btnNext.innerText = "데이터 저장 및 커밋";
+            document.querySelector('.modal-header h3').innerText = "자동차 정보 입력";
             modal.style.display = 'block';
         };
     }
 
-    // 2. 취소 버튼
+    // 2. 모달 취소 버튼 (우측 정렬된 버튼 중 하나)
     if (btnCancel) {
         btnCancel.onclick = () => {
-            modal.style.display = 'none';
+            if (confirm("입력 중인 내용이 저장되지 않습니다. 취소하시겠습니까?")) {
+                modal.style.display = 'none';
+            }
         };
     }
 
-    // 3. 저장 버튼
-    if (btnNext) {
-        btnNext.onclick = handleDataSubmission;
+    // 3. 데이터 저장 버튼 (GitHub API 연동)
+    if (btnSave) {
+        btnSave.onclick = handleDataSubmission;
     }
 
+    // 초기 데이터 로드
     loadLocalData();
 });
 
 /**
- * 데이터 제출 처리 (등록/수정 공용)
+ * [핵심] 깃허브 저장소에서 data.json을 불러와 테이블에 뿌려주는 함수
+ */
+async function loadLocalData() {
+    try {
+        const res = await fetch('data.json?t=' + new Date().getTime()); // 캐시 방지
+        if (!res.ok) throw new Error("데이터를 불러올 수 없습니다.");
+        currentFullData = await res.json();
+        renderTable(currentFullData);
+    } catch (e) {
+        console.error("로드 실패:", e);
+    }
+}
+
+/**
+ * [디자인] 테이블 렌더링 (1300px 너비에 최적화된 10개 열 구조)
+ */
+function renderTable(data) {
+    const tbody = document.getElementById('db-body');
+    if (!tbody) return;
+    tbody.innerHTML = '';
+
+    // 최신 데이터를 위로 보여주기 위해 역순 출력
+    const displayData = [...data].reverse();
+
+    displayData.forEach((car, index) => {
+        // 원본 배열에서의 실제 인덱스 계산
+        const actualIndex = data.length - 1 - index;
+        
+        // 시승기 발행 여부에 따른 버튼 텍스트 변경
+        const reviewBtnText = car.isPublished ? "📝 시승기 수정" : "➕ 시승기 작성";
+        
+        const row = `<tr>
+            <td class="clickable-name" onclick="openEditModal(${actualIndex})">
+                <strong>${car.name || '-'}</strong>
+            </td>
+            <td>${car.year || '-'}</td>
+            <td>${car.brand || '-'}</td>
+            <td>${car.type || '-'}</td>
+            <td>${car.fuel || '-'}</td>
+            <td>${car.size || '-'}</td>
+            <td>${car.price || '0'}</td>
+            <td>${car.experience || '-'}</td> <td>${car.date || '-'}</td>       <td class="admin-actions">
+                <button class="btn-review" onclick="goToEditor(${actualIndex})">${reviewBtnText}</button>
+                <button class="btn-delete" onclick="deleteEntry(${actualIndex})">삭제</button>
+            </td>
+        </tr>`;
+        tbody.innerHTML += row;
+    });
+}
+
+/**
+ * [동선] 에디터 페이지로 이동 (ID 파라미터 포함)
+ */
+function goToEditor(index) {
+    location.href = `editor.html?id=${index}`;
+}
+
+/**
+ * [편의] 가격 입력 시 쉼표(,) 자동 포맷팅
+ */
+function formatPrice(input) {
+    let value = input.value.replace(/[^0-9]/g, '');
+    input.value = value ? parseInt(value).toLocaleString() : '';
+}
+
+/**
+ * [데이터] 저장 로직 (GitHub API PUT)
  */
 async function handleDataSubmission() {
     const name = document.getElementById('name').value;
@@ -61,62 +126,42 @@ async function handleDataSubmission() {
         return;
     }
 
-    const entry = { name, year, brand, type, fuel, size, price, experience, date: today };
-
-    btnNext.disabled = true;
-    btnNext.innerText = "GitHub 처리 중...";
-
-    if (isEditMode && editIndex !== null) {
-        // 수정 모드: 기존 데이터 배열에서 해당 인덱스 교체
-        currentFullData[editIndex] = entry;
-    } else {
-        // 등록 모드: 배열에 추가
-        currentFullData.push(entry);
-    }
-
-    await syncWithGitHub(`Update database: ${isEditMode ? 'Edit' : 'Add'} ${name}`, currentFullData);
+    const newEntry = { name, year, brand, type, fuel, size, price, experience, date: today };
     
-    btnNext.disabled = false;
-    btnNext.innerText = "데이터 저장 및 커밋";
+    // 버튼 비활성화
+    const btnSave = document.getElementById('btn-next');
+    btnSave.disabled = true;
+    btnSave.innerText = "저장 중...";
+
+    try {
+        currentFullData.push(newEntry);
+        await syncWithGitHub("Add new car to database", currentFullData);
+        modal.style.display = 'none';
+        carForm.reset();
+        await loadLocalData();
+    } catch (e) {
+        alert("저장 실패: " + e.message);
+    } finally {
+        btnSave.disabled = false;
+        btnSave.innerText = "저장";
+    }
 }
 
 /**
- * [수정] 특정 데이터를 클릭했을 때 모달을 열고 데이터를 채움
- */
-function openEditModal(index) {
-    isEditMode = true;
-    editIndex = index;
-    const data = currentFullData[index];
-
-    // 폼에 기존 값 채우기
-    document.getElementById('name').value = data.name;
-    document.getElementById('year').value = data.year;
-    document.getElementById('brand').value = data.brand;
-    document.getElementById('type').value = data.type;
-    document.getElementById('fuel').value = data.fuel;
-    document.getElementById('size').value = data.size;
-    document.getElementById('price').value = data.price;
-    document.getElementById('experience').value = data.experience || "시승 센터";
-
-    document.querySelector('.modal-header h3').innerText = "자동차 정보 수정";
-    btnNext.innerText = "수정사항 저장";
-    modal.style.display = 'block';
-}
-
-/**
- * [삭제] 특정 데이터를 배열에서 제거하고 깃허브에 반영
+ * [삭제] 특정 차량 데이터 삭제
  */
 async function deleteEntry(index) {
     if (!confirm(`'${currentFullData[index].name}' 데이터를 삭제하시겠습니까?`)) return;
 
     const deletedName = currentFullData[index].name;
-    currentFullData.splice(index, 1); // 배열에서 삭제
+    currentFullData.splice(index, 1);
 
-    await syncWithGitHub(`Delete from database: ${deletedName}`, currentFullData);
+    await syncWithGitHub(`Delete car: ${deletedName}`, currentFullData);
+    await loadLocalData();
 }
 
 /**
- * GitHub API와 실시간 동기화 (저장/수정/삭제 공용)
+ * [통신] GitHub API를 이용한 파일 업데이트 공용 함수
  */
 async function syncWithGitHub(message, updatedList) {
     const GITHUB_TOKEN = localStorage.getItem("gh_token");
@@ -124,113 +169,27 @@ async function syncWithGitHub(message, updatedList) {
     const REPO_NAME = "evening-min.github.io";
     const FILE_PATH = "data.json";
 
-    try {
-        const url = `https://api.github.com/repos/${REPO_OWNER}/${REPO_NAME}/contents/${FILE_PATH}`;
-        const res = await fetch(url, { headers: { "Authorization": `token ${GITHUB_TOKEN}` } });
-        const fileData = await res.json();
-
-        const updatedContent = btoa(unescape(encodeURIComponent(JSON.stringify(updatedList, null, 2))));
-
-        const putRes = await fetch(url, {
-            method: "PUT",
-            headers: { "Authorization": `token ${GITHUB_TOKEN}`, "Content-Type": "application/json" },
-            body: JSON.stringify({ message, content: updatedContent, sha: fileData.sha })
-        });
-
-        if (putRes.ok) {
-            alert("변경사항이 성공적으로 반영되었습니다!");
-            modal.style.display = 'none';
-            loadLocalData();
-        }
-    } catch (e) {
-        alert("처리에 실패했습니다.");
-    }
-}
-
-let currentPage = 1;
-const itemsPerPage = 10;
-
-// 기존 loadLocalData 함수 수정
-function loadLocalData() {
-    fetch('data.json?t=' + new Date().getTime())
-        .then(res => res.json())
-        .then(data => {
-            currentFullData = data;
-            displayPage(currentPage); // 초기 1페이지 표시
-        });
-}
-
-// 특정 페이지의 데이터만 추출하여 렌더링
-function displayPage(page) {
-    currentPage = page;
-    const startIndex = (page - 1) * itemsPerPage;
-    const endIndex = startIndex + itemsPerPage;
+    const url = `https://api.github.com/repos/${REPO_OWNER}/${REPO_NAME}/contents/${FILE_PATH}`;
     
-    // 원본 데이터는 유지하되, 현재 페이지에 속한 부분만 자름
-    const pagedData = [...currentFullData].reverse().slice(startIndex, endIndex);
-    
-    renderTable(pagedData); // 기존 렌더링 함수 호출
-    renderPagination();     // 페이지 번호 버튼 생성
-}
+    // SHA 값 획득
+    const res = await fetch(url, { headers: { "Authorization": `token ${GITHUB_TOKEN}` } });
+    const fileData = await res.json();
 
-// 페이지 번호 생성 함수
-function renderPagination() {
-    const totalPages = Math.ceil(currentFullData.length / itemsPerPage);
-    const container = document.getElementById('pagination-controls');
-    container.innerHTML = '';
+    // 한글 깨짐 방지 인코딩
+    const updatedContent = btoa(unescape(encodeURIComponent(JSON.stringify(updatedList, null, 2))));
 
-    for (let i = 1; i <= totalPages; i++) {
-        const btn = document.createElement('button');
-        btn.innerText = i;
-        btn.classList.toggle('active', i === currentPage);
-        btn.onclick = () => {
-            displayPage(i);
-            window.scrollTo(0, 0); // 페이지 이동 시 상단으로
-        };
-        container.appendChild(btn);
-    }
-}
-
-/**
- * 테이블 렌더링 함수 (시승기 관리 버튼 추가 버전)
- */
-function renderTable(displayData) {
-    const tbody = document.getElementById('db-body');
-    if (!tbody) return;
-    tbody.innerHTML = ''; 
-
-    displayData.forEach((car) => {
-        // 원본 배열(currentFullData)에서의 인덱스 찾기
-        const actualIndex = currentFullData.findIndex(item => item === car);
-        
-        // 시승기 발행 여부에 따라 버튼 텍스트 변경
-        const reviewBtnText = car.isPublished ? "📝 시승기 수정" : "➕ 시승기 작성";
-        
-        const row = `<tr>
-            <td class="clickable-name" onclick="openEditModal(${actualIndex})">
-                📄 <strong>${car.name}</strong>
-            </td>
-            <td>${car.year}</td>
-            <td>${car.brand}</td>
-            <td>${car.type}</td>
-            <td>${car.fuel}</td>
-            <td>${car.size}</td>
-            <td>${car.price}</td>
-            <td>${car.experience || '-'}</td>
-            <td>${car.date || '-'}</td>
-            <td class="admin-actions">
-                <button class="btn-review" onclick="goToEditor(${actualIndex})">${reviewBtnText}</button>
-                <button class="btn-delete" onclick="deleteEntry(${actualIndex})">삭제</button>
-            </td>
-        </tr>`;
-        tbody.innerHTML += row;
+    const putRes = await fetch(url, {
+        method: "PUT",
+        headers: {
+            "Authorization": `token ${GITHUB_TOKEN}`,
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+            message: message,
+            content: updatedContent,
+            sha: fileData.sha
+        })
     });
-}
 
-/**
- * 에디터 페이지로 이동하는 함수
- * 인덱스를 쿼리 스트링으로 넘겨서 어떤 차인지 알려줍니다.
- */
-function goToEditor(index) {
-    location.href = `editor.html?id=${index}`;
+    if (!putRes.ok) throw new Error("GitHub 업데이트 실패");
 }

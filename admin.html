@@ -38,10 +38,8 @@
                         <th>⚙️ 관리</th>
                     </tr>
                 </thead>
-                <tbody id="db-body">
-                    </tbody>
+                <tbody id="db-body"></tbody>
             </table>
-
             <div id="pagination-controls" class="pagination"></div>
         </section>
     </main>
@@ -50,103 +48,61 @@
         <div class="modal-content">
             <div class="modal-header">
                 <h3>자동차 정보 입력</h3>
-                <p></p>
             </div>
             
             <form id="car-form">
-                <div class="form-row">
-                    <label>자동차 이름</label>
-                    <input type="text" id="name" placeholder="예: Sonata" required>
-                </div>
-                <div class="form-row">
-                    <label>연식</label>
-                    <input type="number" id="year" placeholder="예: 2025" required>
-                </div>
-                <div class="form-row">
-                    <label>브랜드</label>
-                    <select id="brand">
-                        <optgroup label="국산차">
-                            <option value="Hyundai">현대</option>
-                            <option value="Kia">기아</option>
-                            <option value="Genesis">제네시스</option>
-                            <option value="Chevrolet">쉐보레</option>
-                            <option value="KG Mobility">KGM(쌍용)</option>
-                            <option value="Renault Korea">르노코리아</option>
-                        </optgroup>
-                        <optgroup label="수입차">
-                            <option value="BMW">BMW</option>
-                            <option value="Mercedes-Benz">메르세데스-벤츠</option>
-                            <option value="MINI">미니</option>
-                            <option value="Volvo">볼보(Volvo)</option>
-                            <option value="Audi">아우디</option>
-                            <option value="Alfa Romeo">알파로메오</option>
-                            <option value="Tesla">테슬라</option>
-                            <option value="Ford">포드</option>
-                            <option value="Porsche">포르쉐</option>
-                            <option value="Volkswagen">폭스바겐</option>
-                            <option value="Polestar">폴스타</option>
-                        </optgroup>
-                    </select>
-                </div>
-
-                <div class="form-row">
-                    <label>형식</label>
-                    <select id="type">
-                        <option value="Sedan">세단</option>
-                        <option value="SUV">SUV</option>
-                        <option value="Hatchback">해치백</option>
-                        <option value="Wagon">왜건</option>
-                        <option value="MiniVan">승합</option>
-                        <option value="Coupe">쿠페</option>
-                        <option value="Sports">스포츠카</option>
-                        <option value="Convertible">컨버터블</option>
-                        <option value="Bus">버스</option>
-                        <option value="Truck">트럭</option>
-                    </select>
-                </div>
-
-                <div class="form-row">
-                    <label>연료 종류</label>
-                    <select id="fuel">
-                        <option value="Gasoline">가솔린</option>
-                        <option value="Diesel">디젤</option>
-                        <option value="Hybrid">가솔린 하이브리드</option>
-                        <option value="PHEV">플러그인 하이브리드</option>
-                        <option value="Electric">전기</option>
-                        <option value="EREV">EREV</option>
-                        <option value="LPG">LPG</option>
-                        <option value="Hydrogen">수소</option>
-                    </select>
-                </div>
-
-                <div class="form-row">
-                    <label>크기</label>
-                    <select id="size">
-                        <option value="Micro">경차</option>
-                        <option value="Subcompact">소형</option>
-                        <option value="Compact">준중형</option>
-                        <option value="Mid-size">중형</option>
-                        <option value="Full-size">준대형</option>
-                        <option value="Luxury">대형</option>
-                    </select>
-                </div>
-                <div class="form-row">
-                    <label>차량 가격</label>
-                    <input type="text" id="price" placeholder="금액을 입력하세요" oninput="formatPrice(this)">
+                <div class="form-grid">
+                    <div class="form-row">
+                        <label>자동차 이름</label>
+                        <input type="text" id="name" placeholder="예: Tesla Model 3">
+                    </div>
+                    <div class="form-row">
+                        <label>연식</label>
+                        <input type="number" id="year" placeholder="2024">
+                    </div>
+                    <div class="form-row">
+                        <label>브랜드</label>
+                        <input type="text" id="brand" placeholder="Hyundai">
+                    </div>
+                    <div class="form-row">
+                        <label>형식</label>
+                        <select id="type">
+                            <option value="Sedan">세단</option>
+                            <option value="SUV">SUV</option>
+                            <option value="Hatchback">해치백</option>
+                            <option value="Coupe">쿠페</option>
+                        </select>
+                    </div>
+                    <div class="form-row">
+                        <label>연료 종류</label>
+                        <select id="fuel">
+                            <option value="Gasoline">가솔린</option>
+                            <option value="Electric">전기</option>
+                            <option value="Hybrid">하이브리드</option>
+                        </select>
+                    </div>
+                    <div class="form-row">
+                        <label>크기</label>
+                        <select id="size">
+                            <option value="Compact">준중형</option>
+                            <option value="Mid-size">중형</option>
+                            <option value="Full-size">준대형</option>
+                        </select>
+                    </div>
+                    <div class="form-row">
+                        <label>가격</label>
+                        <input type="text" id="price" oninput="formatPrice(this)">
+                    </div>
+                    <div class="form-row">
+                        <label>체험 경로</label>
+                        <select id="experience">
+                            <option value="본인/가족 차량">본인/가족 차량</option>
+                            <option value="제조사 시승">제조사 시승</option>
+                            <option value="렌터카/카셰어링">렌터카/카셰어링</option>
+                        </select>
+                    </div>
                 </div>
                 
-                <div class="form-row">
-                    <label>체험 경로</label>
-                    <select id="experience">
-                        <option value="본인/가족 차량">본인/가족 차량</option>
-                        <option value="지인/친척 차량">지인/친척 차량</option>
-                        <option value="소속 단체 차량">소속 단체 차량</option>
-                        <option value="제조사 시승">제조사 시승</option>
-                        <option value="렌터카/카셰어링">렌터카/카셰어링</option>
-                        <option value="기타">기타</option>
-                    </select>
-                </div>
-
                 <div class="modal-footer">
                     <button type="button" id="btn-cancel" class="btn-secondary">취소</button>
                     <button type="button" id="btn-next" class="btn-primary">저장</button>
