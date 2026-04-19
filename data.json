@@ -32,7 +32,7 @@
     "imageCount": 3
   },
   {
-    "name": "Sonata",
+    "name": "Sonata The Edge",
     "year": "2024",
     "brand": "Hyundai",
     "type": "Sedan",
@@ -43,9 +43,8 @@
     "date": "2026-04-19",
     "isPublished": true,
     "reviewPath": "reviews/1776605215696_Sonata.json",
-    "postTitle": "여전히 평타 이상 하는 차",
     "imageFolder": "1776609368226_Sonata",
-    "imageCount": 1
+    "postTitle": "여전히 평타 이상 하는 차"
   },
   {
     "name": "Casper",
@@ -74,7 +73,7 @@
     "reviewPath": ""
   },
   {
-    "name": "The Next Spark",
+    "name": "Spark",
     "year": "2017",
     "brand": "Chevrolet",
     "type": "Hatchback",
@@ -84,8 +83,6 @@
     "experience": "본인/가족 차량",
     "date": "2026-04-19",
     "isPublished": false,
-    "reviewPath": "",
-    "imageFolder": "",
-    "postTitle": ""
+    "reviewPath": ""
   }
 ]
