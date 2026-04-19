@@ -13,11 +13,19 @@ document.addEventListener('DOMContentLoaded', () => {
     const performLogin = () => {
         const ADMIN_ID = "admin";
         const ADMIN_PW = "Adm!n";
+        const idInput = document.getElementById('admin-id');
+        const pwInput = document.getElementById('admin-pw');
+        const tokenInput = document.getElementById('github-token');
         const errorText = document.getElementById('error-text');
 
         if (idInput.value === ADMIN_ID && pwInput.value === ADMIN_PW) {
             sessionStorage.setItem("isLoggedIn", "true");
-            // replace를 사용하면 브라우저 히스토리에 로그인 페이지가 남지 않아 보안상 더 좋습니다.
+            
+            // 토큰이 입력되었다면 로컬 스토리지에 저장 (지우지 않는 한 유지)
+            if (tokenInput.value) {
+                localStorage.setItem("gh_token", tokenInput.value);
+            }
+            
             window.location.replace("admin.html"); 
         } else {
             errorText.style.display = 'block';

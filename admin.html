@@ -42,6 +42,7 @@
         <div class="modal-content">
             <div class="modal-header">
                 <h3>자동차 정보 입력</h3>
+                <p></p>
             </div>
             
             <form id="car-form">
@@ -126,9 +127,21 @@
                     <input type="text" id="price" placeholder="금액을 입력하세요" oninput="formatPrice(this)">
                 </div>
                 
+                <div class="form-row">
+                    <label>체험 경로</label>
+                    <select id="experience">
+                        <option value="본인/가족 차량">본인/가족 차량</option>
+                        <option value="지인/친척 차량">지인/친척 차량</option>
+                        <option value="소속 단체 차량">소속 단체 차량</option>
+                        <option value="제조사 시승">제조사 시승</option>
+                        <option value="렌터카/카셰어링">렌터카/카셰어링</option>
+                        <option value="기타">기타</option>
+                    </select>
+                </div>
+
                 <div class="modal-footer">
                     <button type="button" id="btn-cancel" class="btn-secondary">취소</button>
-                    <button type="button" id="btn-next" class="btn-primary">시승기 작성</button>
+                    <button type="button" id="btn-next" class="btn-primary">데이터 저장 및 커밋</button>
                 </div>
             </form>
         </div>
