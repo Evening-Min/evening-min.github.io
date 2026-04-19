@@ -25,10 +25,11 @@
     "price": "49,900,000",
     "experience": "본인/가족 차량",
     "date": "2026-04-19",
-    "isPublished": false,
-    "reviewPath": "",
-    "imageFolder": "",
-    "postTitle": ""
+    "isPublished": true,
+    "reviewPath": "reviews/1776610972464_Santa_Fe_Hybrid.json",
+    "imageFolder": "1776610972464_Santa_Fe_Hybrid",
+    "postTitle": "타보지 않은 사람만 욕하는 차",
+    "imageCount": 3
   },
   {
     "name": "Sonata",
