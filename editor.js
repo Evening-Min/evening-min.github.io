@@ -1,135 +1,137 @@
 /**
  * editor.js
- * 기능: 시승기 작성, 이미지 다중 업로드(타임스탬프 폴더), data.json 업데이트
+ * 기능: 시승기 불러오기(수정 모드), 이미지 다중 업로드(폴더 생성), data.json 통합 저장
  */
 
-let selectedFiles = [];
+let selectedFiles = []; // 사용자가 선택한 파일 배열
+let currentAllData = []; // 전체 자동차 데이터
+let targetCarIndex = null; // 현재 편집 중인 차량의 인덱스
 
 document.addEventListener('DOMContentLoaded', () => {
-    loadCarList(); // DB에서 차량 목록 불러오기
+    // 1. URL에서 차량 ID 추출 (예: editor.html?id=3)
+    const urlParams = new URLSearchParams(window.location.search);
+    targetCarIndex = urlParams.get('id');
 
-    // 요소 연결
+    // 2. 초기 데이터 로드 및 UI 셋팅
+    initEditor();
+
+    // 3. 버튼 이벤트 연결
     const btnAddImage = document.getElementById('btn-add-image');
     const fileInput = document.getElementById('file-input');
     const btnSave = document.getElementById('btn-save-post');
 
-    // 1. 이미지 추가 버튼 클릭 시 숨겨진 input 호출
     btnAddImage.onclick = () => fileInput.click();
-
-    // 2. 파일 선택 시 상태 업데이트
+    
     fileInput.onchange = (e) => {
         selectedFiles = Array.from(e.target.files);
         document.getElementById('file-count').innerText = `${selectedFiles.length}개의 파일이 선택되었습니다.`;
     };
 
-    // 3. 발행하기 버튼 클릭
     btnSave.onclick = handlePublish;
 });
 
-// [기능] 기존 data.json에서 차량 목록을 불러와 셀렉트 박스에 채움
-async function loadCarList() {
+/**
+ * 에디터 초기화: 데이터 로드 및 기존 내용 채우기
+ */
+async function initEditor() {
     try {
         const res = await fetch('data.json?t=' + new Date().getTime());
-        const data = await res.json();
+        currentAllData = await res.json();
+        
         const selector = document.getElementById('car-selector');
+        selector.innerHTML = '<option value="">대상 차량을 선택하세요</option>';
 
-        data.forEach((car, index) => {
+        currentAllData.forEach((car, index) => {
             const opt = document.createElement('option');
-            opt.value = index; // 배열 인덱스를 value로 사용
-            opt.innerText = `[${car.brand}] ${car.name} (${car.year})`;
+            opt.value = index;
+            opt.innerText = `[${car.brand}] ${car.name}`;
+            // URL 파라미터와 일치하는 차량 자동 선택
+            if (index == targetCarIndex) opt.selected = true;
             selector.appendChild(opt);
         });
+
+        // 수정 모드: 기존 시승기 정보가 있다면 필드에 채움
+        if (targetCarIndex !== null && currentAllData[targetCarIndex].isPublished) {
+            const car = currentAllData[targetCarIndex];
+            document.getElementById('post-title').value = car.postTitle || "";
+            document.getElementById('post-content').value = car.postContent || "";
+            document.getElementById('file-count').innerText = `기존 폴더: ${car.imageFolder || '없음'}`;
+            document.getElementById('btn-save-post').innerText = "시승기 수정 완료";
+        }
     } catch (e) {
-        console.error("차량 목록 로드 실패:", e);
+        console.error("데이터 로드 실패:", e);
     }
 }
 
-// [핵심] 발행 프로세스: 이미지 업로드 -> 데이터 업데이트
+/**
+ * 발행/수정 메인 프로세스
+ */
 async function handlePublish() {
-    const carIndex = document.getElementById('car-selector').value;
+    const selectedIdx = document.getElementById('car-selector').value;
     const title = document.getElementById('post-title').value;
     const content = document.getElementById('post-content').value;
     const GITHUB_TOKEN = localStorage.getItem("gh_token");
 
-    if (!carIndex || !title || !content) {
+    if (!selectedIdx || !title || !content) {
         alert("대상 차량, 제목, 본문을 모두 입력해주세요.");
-        return;
-    }
-
-    if (!GITHUB_TOKEN) {
-        alert("GitHub 토큰이 없습니다. 다시 로그인해주세요.");
         return;
     }
 
     const btnSave = document.getElementById('btn-save-post');
     btnSave.disabled = true;
-    btnSave.innerText = "업로드 중... 잠시만 기다려주세요.";
+    btnSave.innerText = "처리 중...";
 
     try {
-        // 1. 선택된 차량 데이터 가져오기
-        const res = await fetch('data.json?t=' + new Date().getTime());
-        const allData = await res.json();
-        const targetCar = allData[carIndex];
-
-        // 2. 이미지 업로드 (폴더 생성)
-        let folderName = "";
+        // 1. 새 이미지가 있다면 업로드 진행 (폴더 생성)
+        let folderName = currentAllData[selectedIdx].imageFolder || "";
         if (selectedFiles.length > 0) {
-            folderName = await uploadImagesToGitHub(targetCar.name);
+            folderName = await uploadImagesToGitHub(currentAllData[selectedIdx].name);
         }
 
-        // 3. 차량 객체에 시승기 내용 추가 (스키마 확장)
-        allData[carIndex].postTitle = title;
-        allData[carIndex].postContent = content;
-        allData[carIndex].imageFolder = folderName; // 이미지들이 담긴 폴더명 저장
-        allData[carIndex].isPublished = true;       // 발행 여부 플래그
+        // 2. 데이터 객체 업데이트
+        currentAllData[selectedIdx].postTitle = title;
+        currentAllData[selectedIdx].postContent = content;
+        currentAllData[selectedIdx].imageFolder = folderName;
+        currentAllData[selectedIdx].isPublished = true;
+        currentAllData[selectedIdx].lastUpdated = new Date().toLocaleString();
 
-        // 4. 최종 data.json 깃허브에 업데이트
-        await updateDataJson(allData, title);
+        // 3. GitHub에 data.json 저장
+        await updateDataJson(currentAllData, title);
 
-        alert("시승기가 성공적으로 발행되었습니다!");
-        location.href = 'admin.html'; // 완료 후 관리자 페이지로 이동
+        alert("시승기가 성공적으로 저장되었습니다.");
+        location.href = 'admin.html';
 
     } catch (e) {
-        console.error(e);
-        alert("발행 실패: " + e.message);
+        alert("오류 발생: " + e.message);
     } finally {
         btnSave.disabled = false;
         btnSave.innerText = "시승기 발행하기";
     }
 }
 
-// [기능] 파일을 Base64로 변환
-const readFileAsBase64 = (file) => {
-    return new Promise((resolve, reject) => {
-        const reader = new FileReader();
-        reader.onload = () => resolve(reader.result.split(',')[1]);
-        reader.onerror = reject;
-        reader.readAsDataURL(file);
-    });
-};
-
-// [기능] 이미지 다중 업로드 로직
+/**
+ * 이미지를 GitHub 타임스탬프 폴더에 업로드
+ */
 async function uploadImagesToGitHub(carName) {
     const GITHUB_TOKEN = localStorage.getItem("gh_token");
-    const REPO_OWNER = "evening-min";
-    const REPO_NAME = "evening-min.github.io";
-    
     const timestamp = new Date().getTime();
     const folderName = `${timestamp}_${carName.replace(/\s+/g, '_')}`;
     
     for (const file of selectedFiles) {
-        const base64Content = await readFileAsBase64(file);
+        const reader = new FileReader();
+        const base64Content = await new Promise((resolve) => {
+            reader.onload = () => resolve(reader.result.split(',')[1]);
+            reader.readAsDataURL(file);
+        });
+
         const path = `images/${folderName}/${file.name}`;
-        const url = `https://api.github.com/repos/${REPO_OWNER}/${REPO_NAME}/contents/${path}`;
+        const url = `https://api.github.com/repos/evening-min/evening-min.github.io/contents/${path}`;
 
         await fetch(url, {
             method: "PUT",
-            headers: {
-                "Authorization": `token ${GITHUB_TOKEN}`,
-                "Content-Type": "application/json"
-            },
+            headers: { "Authorization": `token ${GITHUB_TOKEN}`, "Content-Type": "application/json" },
             body: JSON.stringify({
-                message: `Upload image: ${file.name} for review`,
+                message: `Upload: ${file.name}`,
                 content: base64Content
             })
         });
@@ -137,27 +139,24 @@ async function uploadImagesToGitHub(carName) {
     return folderName;
 }
 
-// [기능] data.json 파일 업데이트 (admin.js 로직 응용)
-async function updateDataJson(updatedList, title) {
+/**
+ * 최종 data.json 업데이트
+ */
+async function updateDataJson(updatedList, postTitle) {
     const GITHUB_TOKEN = localStorage.getItem("gh_token");
-    const REPO_OWNER = "evening-min";
-    const REPO_NAME = "evening-min.github.io";
-    const FILE_PATH = "data.json";
+    const url = `https://api.github.com/repos/evening-min/evening-min.github.io/contents/data.json`;
 
-    const url = `https://api.github.com/repos/${REPO_OWNER}/${REPO_NAME}/contents/${FILE_PATH}`;
-    const res = await fetch(url, { headers: { "Authorization": `token ${GITHUB_TOKEN}` } });
-    const fileData = await res.json();
+    // 최신 SHA 값을 가져오기 위해 먼저 fetch
+    const getRes = await fetch(url, { headers: { "Authorization": `token ${GITHUB_TOKEN}` } });
+    const fileData = await getRes.json();
 
     const updatedContent = btoa(unescape(encodeURIComponent(JSON.stringify(updatedList, null, 2))));
 
     await fetch(url, {
         method: "PUT",
-        headers: {
-            "Authorization": `token ${GITHUB_TOKEN}`,
-            "Content-Type": "application/json"
-        },
+        headers: { "Authorization": `token ${GITHUB_TOKEN}`, "Content-Type": "application/json" },
         body: JSON.stringify({
-            message: `Publish Review: ${title}`,
+            message: `Update Review: ${postTitle}`,
             content: updatedContent,
             sha: fileData.sha
         })

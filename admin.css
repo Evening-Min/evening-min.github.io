@@ -257,3 +257,28 @@
     color: white;
     border-color: #2383e2;
 }
+/* 관리 열 버튼 레이아웃 */
+.admin-actions {
+    display: flex;
+    gap: 8px; /* 버튼 사이 간격 */
+    align-items: center;
+}
+
+/* 시승기 작성/수정 버튼 스타일 */
+.btn-review {
+    background-color: #f0f7ff;
+    color: #007aff;
+    border: 1px solid #c2e0ff;
+    padding: 4px 10px;
+    border-radius: 4px;
+    font-size: 12px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s;
+    white-space: nowrap; /* 글자 줄바꿈 방지 */
+}
+
+.btn-review:hover {
+    background-color: #007aff;
+    color: white;
+}

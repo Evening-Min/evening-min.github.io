@@ -191,19 +191,24 @@ function renderPagination() {
     }
 }
 
-// renderTable 수정: 실제 인덱스 계산 로직 보완
+/**
+ * 테이블 렌더링 함수 (시승기 관리 버튼 추가 버전)
+ */
 function renderTable(displayData) {
     const tbody = document.getElementById('db-body');
     if (!tbody) return;
     tbody.innerHTML = ''; 
 
-    displayData.forEach((car, index) => {
-        // reverse된 상태에서 원본 배열의 실제 인덱스 찾기
+    displayData.forEach((car) => {
+        // 원본 배열(currentFullData)에서의 인덱스 찾기
         const actualIndex = currentFullData.findIndex(item => item === car);
+        
+        // 시승기 발행 여부에 따라 버튼 텍스트 변경
+        const reviewBtnText = car.isPublished ? "📝 시승기 수정" : "➕ 시승기 작성";
         
         const row = `<tr>
             <td class="clickable-name" onclick="openEditModal(${actualIndex})">
-                <strong>${car.name}</strong>
+                📄 <strong>${car.name}</strong>
             </td>
             <td>${car.year}</td>
             <td>${car.brand}</td>
@@ -213,8 +218,19 @@ function renderTable(displayData) {
             <td>${car.price}</td>
             <td>${car.experience || '-'}</td>
             <td>${car.date || '-'}</td>
-            <td><button class="btn-delete" onclick="deleteEntry(${actualIndex})">삭제</button></td>
+            <td class="admin-actions">
+                <button class="btn-review" onclick="goToEditor(${actualIndex})">${reviewBtnText}</button>
+                <button class="btn-delete" onclick="deleteEntry(${actualIndex})">삭제</button>
+            </td>
         </tr>`;
         tbody.innerHTML += row;
     });
+}
+
+/**
+ * 에디터 페이지로 이동하는 함수
+ * 인덱스를 쿼리 스트링으로 넘겨서 어떤 차인지 알려줍니다.
+ */
+function goToEditor(index) {
+    location.href = `editor.html?id=${index}`;
 }
