@@ -62,10 +62,10 @@ function renderReviewPage(page) {
 });
 
 // 이미지 로드 실패 시(경로에 파일이 없을 때) 처리 함수
-function handleImgError(img) {
+window.handleImgError = function(img) {
     const container = img.parentElement;
     container.innerHTML = `<div class="no-image-placeholder">사진 없음</div>`;
-}
+};
 
     renderPagination();
 }
