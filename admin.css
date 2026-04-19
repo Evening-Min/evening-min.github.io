@@ -1,5 +1,14 @@
 .admin-header { background: #fff; padding: 20px 0; border-bottom: 1px solid #eee; }
-.header-container { display: flex; justify-content: space-between; align-items: center; }
+.header-container { 
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    max-width: 1100px; 
+    margin: 0 auto;
+
+    padding: 0 40px;
+}
 
 /* 노션 테이블 */
 .notion-table {
