@@ -1,6 +1,6 @@
 [
   {
-    "name": "2022 Tesla Model 3",
+    "name": "Model 3",
     "year": "2022",
     "brand": "Tesla",
     "type": "Sedan",
@@ -11,7 +11,7 @@
     "date": "2025-05-19"
   },
   {
-    "name": "2025 Hyundai Santa Fe",
+    "name": "Santa Fe",
     "year": "2025",
     "brand": "Hyundai",
     "type": "SUV",
