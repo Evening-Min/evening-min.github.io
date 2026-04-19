@@ -73,7 +73,7 @@
     "reviewPath": ""
   },
   {
-    "name": "Spark",
+    "name": "The Next Spark",
     "year": "2017",
     "brand": "Chevrolet",
     "type": "Hatchback",
@@ -83,6 +83,8 @@
     "experience": "본인/가족 차량",
     "date": "2026-04-19",
     "isPublished": false,
-    "reviewPath": ""
+    "reviewPath": "",
+    "imageFolder": "",
+    "postTitle": ""
   }
 ]
