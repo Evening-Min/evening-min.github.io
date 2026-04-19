@@ -6,13 +6,13 @@
     "type": "Sedan",
     "fuel": "Electric",
     "size": "Mid-size",
-    "price": "61,900,000",
+    "price": "55,000,000",
     "experience": "지인/친척 차량",
-    "date": "2026-04-19",
-    "isPublished": false,
-    "reviewPath": "",
-    "imageFolder": "",
-    "postTitle": ""
+    "date": "2025-05-19",
+    "postTitle": "전자레인지에 바퀴 추가",
+    "reviewPath": "reviews/1776597050987_Model_3.json",
+    "imageFolder": "1776597050987_Model_3",
+    "isPublished": true
   },
   {
     "name": "Santa Fe",
