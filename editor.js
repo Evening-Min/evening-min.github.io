@@ -97,23 +97,27 @@ async function handlePublish() {
     btnSave.disabled = true;
     btnSave.innerText = "발행 중 (잠시만 기다려주세요...)";
 
-    // handlePublish 함수 중간 부분
     try {
         const car = currentAllData[targetCarIndex];
         const timestamp = new Date().getTime();
         const carSafeName = car.name.replace(/\s+/g, '_');
 
-        // 1. 이미지 업로드 시 folderName과 개수를 함께 받아옴
-        let folderInfo = { folderName: car.imageFolder || "", imageCount: car.imageCount || 0 };
+        // 1. 이미지 업로드 시 folderInfo 객체를 받아옴 (folderName 선언 에러 해결 지점)
+        let folderInfo = { 
+            folderName: car.imageFolder || "", 
+            imageCount: car.imageCount || 0 
+        };
+
         if (selectedFiles.length > 0) {
+            // 새로운 파일이 있으면 업로드 후 정보 업데이트
             folderInfo = await uploadImagesToGitHub(carSafeName, timestamp);
         }
 
-        // 2. 시승기 본문 JSON에 이미지 정보 기록
+        // 2. 시승기 본문 JSON 구성 (상세 정보 포함)
         const reviewData = {
             title: title,
             content: content,
-            // [중요] 차량 상세 정보를 포스트 데이터에 직접 포함
+            // [중요] 차량 상세 정보를 포스트 데이터에 직접 포함하여 post.html에서 표를 그릴 수 있게 함
             carDetails: {
                 brand: car.brand,
                 year: car.year,
@@ -125,13 +129,19 @@ async function handlePublish() {
             imageCount: folderInfo.imageCount,
             updatedAt: new Date().toISOString()
         };
-        const reviewPath = `reviews/${timestamp}_${carSafeName}.json`;
+
+        // 시승기 개별 파일 경로 (수정 시에도 새 경로를 쓰거나 기존 경로를 유지할 수 있음)
+        const reviewPath = car.reviewPath || `reviews/${timestamp}_${carSafeName}.json`;
+        
+        // 시승기 파일 업로드
         await uploadToGithub(reviewPath, reviewData, `Review: ${title}`);
 
-        // 3. 메인 data.json 업데이트 (경로만 저장)
+        // 3. 메인 data.json 업데이트
         currentAllData[targetCarIndex].postTitle = title;
         currentAllData[targetCarIndex].reviewPath = reviewPath;
-        currentAllData[targetCarIndex].imageFolder = folderName;
+        // [에러 해결] folderName -> folderInfo.folderName으로 수정
+        currentAllData[targetCarIndex].imageFolder = folderInfo.folderName; 
+        currentAllData[targetCarIndex].imageCount = folderInfo.imageCount;
         currentAllData[targetCarIndex].isPublished = true;
 
         await updateMainDataJson(currentAllData, title);
@@ -149,14 +159,11 @@ async function handlePublish() {
 }
 
 /**
- * 다중 이미지 업로드 함수
- */
-/**
  * 다중 이미지 업로드 함수 (자동 번호 매기기 버전)
  */
 async function uploadImagesToGitHub(carName, timestamp) {
     const folderName = `${timestamp}_${carName}`;
-    let fileIndex = 1; // 1번부터 시작하는 카운터
+    let fileIndex = 1;
 
     for (const file of selectedFiles) {
         const reader = new FileReader();
@@ -165,19 +172,14 @@ async function uploadImagesToGitHub(carName, timestamp) {
             reader.readAsDataURL(file);
         });
 
-        // 원본 확장자를 유지하고 싶다면 file.name에서 추출, 
-        // 일관성을 위해 소문자 .jpg로 통일하고 싶다면 'jpg'로 고정할 수 있습니다.
         const extension = file.name.split('.').pop().toLowerCase(); 
         const fileName = `${fileIndex}.${extension}`; 
         const path = `images/${folderName}/${fileName}`;
 
         await uploadToGithub(path, base64, `Upload Img: ${fileName}`, true);
-        
-        fileIndex++; // 다음 파일은 2, 3, 4... 순으로 증가
+        fileIndex++;
     }
     
-    // 나중에 post.js에서 슬라이더를 만들 때 몇 장인지 알 수 있도록 
-    // 총 이미지 개수를 리턴하거나 어딘가에 저장하면 좋습니다.
     return { folderName, imageCount: fileIndex - 1 };
 }
 
@@ -198,7 +200,6 @@ async function uploadToGithub(path, data, message, isBase64 = false) {
 
     const url = `https://api.github.com/repos/${REPO_OWNER}/${REPO_NAME}/contents/${path}`;
     
-    // 파일 존재 여부 확인 (수정 시 SHA 필요)
     let sha;
     try {
         const getRes = await fetch(url, { headers: { "Authorization": `token ${GITHUB_TOKEN}` } });
