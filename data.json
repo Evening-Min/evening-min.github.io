@@ -86,10 +86,11 @@
     "price": "16,530,000",
     "experience": "본인/가족 차량",
     "date": "2026-04-19",
-    "isPublished": false,
-    "reviewPath": "",
-    "imageFolder": "",
-    "postTitle": ""
+    "isPublished": true,
+    "reviewPath": "reviews/1776612570774_The_Next_Spark.json",
+    "imageFolder": "1776612570774_The_Next_Spark",
+    "postTitle": "경차 1티어, 단종되지만 않았어도..",
+    "imageCount": 1
   },
   {
     "name": "Staria (9인승)",
