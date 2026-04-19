@@ -147,47 +147,73 @@ async function syncWithGitHub(message, updatedList) {
     }
 }
 
-/**
- * 데이터 로드 및 테이블 렌더링
- */
+let currentPage = 1;
+const itemsPerPage = 10;
+
+// 기존 loadLocalData 함수 수정
 function loadLocalData() {
-    fetch('data.json?t=' + new Date().getTime()) // 캐시 방지
+    fetch('data.json?t=' + new Date().getTime())
         .then(res => res.json())
         .then(data => {
             currentFullData = data;
-            renderTable(data);
+            displayPage(currentPage); // 초기 1페이지 표시
         });
 }
 
-/**
- * 테이블 렌더링 함수 (수정 및 삭제 기능 포함 버전)
- */
-function renderTable(data) {
+// 특정 페이지의 데이터만 추출하여 렌더링
+function displayPage(page) {
+    currentPage = page;
+    const startIndex = (page - 1) * itemsPerPage;
+    const endIndex = startIndex + itemsPerPage;
+    
+    // 원본 데이터는 유지하되, 현재 페이지에 속한 부분만 자름
+    const pagedData = [...currentFullData].reverse().slice(startIndex, endIndex);
+    
+    renderTable(pagedData); // 기존 렌더링 함수 호출
+    renderPagination();     // 페이지 번호 버튼 생성
+}
+
+// 페이지 번호 생성 함수
+function renderPagination() {
+    const totalPages = Math.ceil(currentFullData.length / itemsPerPage);
+    const container = document.getElementById('pagination-controls');
+    container.innerHTML = '';
+
+    for (let i = 1; i <= totalPages; i++) {
+        const btn = document.createElement('button');
+        btn.innerText = i;
+        btn.classList.toggle('active', i === currentPage);
+        btn.onclick = () => {
+            displayPage(i);
+            window.scrollTo(0, 0); // 페이지 이동 시 상단으로
+        };
+        container.appendChild(btn);
+    }
+}
+
+// renderTable 수정: 실제 인덱스 계산 로직 보완
+function renderTable(displayData) {
     const tbody = document.getElementById('db-body');
     if (!tbody) return;
-    
     tbody.innerHTML = ''; 
 
-    // 최신 데이터를 위로 올리고 싶다면 .reverse()를 사용하세요.
-    const displayData = [...data].reverse();
-
     displayData.forEach((car, index) => {
-        // 실제 데이터의 인덱스를 추적하기 위해 계산 (reverse 사용 시 필요)
-        const actualIndex = data.length - 1 - index;
+        // reverse된 상태에서 원본 배열의 실제 인덱스 찾기
+        const actualIndex = currentFullData.findIndex(item => item === car);
         
         const row = `<tr>
             <td class="clickable-name" onclick="openEditModal(${actualIndex})">
-                📄 <strong>${car.name || '-'}</strong>
+                📄 <strong>${car.name}</strong>
             </td>
-            <td>${car.year || '-'}</td>
-            <td>${car.brand || '-'}</td>
-            <td>${car.type || '-'}</td>
-            <td>${car.fuel || '-'}</td>
-            <td>${car.size || '-'}</td>
-            <td>${car.price || '0'}</td>
-            <td>${car.experience || '-'}</td> <td>${car.date || '-'}</td>       <td>
-                <button class="btn-delete" onclick="deleteEntry(${actualIndex})">삭제</button>
-            </td>
+            <td>${car.year}</td>
+            <td>${car.brand}</td>
+            <td>${car.type}</td>
+            <td>${car.fuel}</td>
+            <td>${car.size}</td>
+            <td>${car.price}</td>
+            <td>${car.experience || '-'}</td>
+            <td>${car.date || '-'}</td>
+            <td><button class="btn-delete" onclick="deleteEntry(${actualIndex})">삭제</button></td>
         </tr>`;
         tbody.innerHTML += row;
     });

@@ -10,15 +10,18 @@
 <body class="admin-page">
     <header class="admin-header">
         <div class="header-container">
-            <h1>Database Admin</h1>
+            <h1>Car-Log Database Administration</h1>
             <div class="header-tools">
-                <button id="btn-open-modal" class="btn-new">+ 새로 만들기</button>
-                <button onclick="logout()" class="btn-logout">로그아웃</button>
+                <button onclick="logout()" class="btn-logout-link">로그아웃</button>
             </div>
         </div>
     </header>
 
     <main class="admin-main">
+        <div class="main-actions">
+            <button id="btn-open-modal" class="btn-new-sky">+ 새 자동차 추가하기</button>
+        </div>
+
         <section class="database-view">
             <table class="notion-table">
                 <thead>
@@ -30,11 +33,16 @@
                         <th>▽ 연료 종류</th>
                         <th>▽ 크기</th>
                         <th># 가격</th>
-                        <th>🗺️ 체험 경로</th> <th>📅 등록일</th>    <th>⚙️ 관리</th>      </tr>
+                        <th>🗺️ 체험 경로</th>
+                        <th>📅 등록일</th>
+                        <th>⚙️ 관리</th>
+                    </tr>
                 </thead>
                 <tbody id="db-body">
                     </tbody>
             </table>
+
+            <div id="pagination-controls" class="pagination"></div>
         </section>
     </main>
 
