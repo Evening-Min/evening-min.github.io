@@ -107,7 +107,7 @@
   },
   {
     "name": "K-711A1",
-    "year": "2018",
+    "year": "2003",
     "brand": "Kia",
     "type": "Truck",
     "fuel": "Diesel",
@@ -116,7 +116,9 @@
     "experience": "소속 기관 차량",
     "date": "2026-04-20",
     "isPublished": false,
-    "reviewPath": ""
+    "reviewPath": "",
+    "imageFolder": "",
+    "postTitle": ""
   },
   {
     "name": "K-511A1",
