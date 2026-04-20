@@ -146,5 +146,18 @@
     "date": "2026-04-20",
     "isPublished": false,
     "reviewPath": ""
+  },
+  {
+    "name": "G70 2.0T",
+    "year": "2019",
+    "brand": "Genesis",
+    "type": "Sedan",
+    "fuel": "Gasoline",
+    "size": "Compact",
+    "price": "39,950,000",
+    "experience": "기타",
+    "date": "2026-04-20",
+    "isPublished": false,
+    "reviewPath": ""
   }
 ]
