@@ -104,5 +104,18 @@
     "date": "2025-02-24",
     "isPublished": false,
     "reviewPath": ""
+  },
+  {
+    "name": "K-711A1",
+    "year": "2018",
+    "brand": "Kia",
+    "type": "Truck",
+    "fuel": "Diesel",
+    "size": "Large",
+    "price": "150,000,000",
+    "experience": "소속 기관 차량",
+    "date": "2026-04-20",
+    "isPublished": false,
+    "reviewPath": ""
   }
 ]
