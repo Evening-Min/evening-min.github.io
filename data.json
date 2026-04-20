@@ -115,7 +115,10 @@
     "price": "150,000,000",
     "experience": "소속 기관 차량",
     "date": "2026-04-20",
-    "isPublished": false,
-    "reviewPath": ""
+    "isPublished": true,
+    "reviewPath": "reviews/1776658964991_K-711A1.json",
+    "postTitle": "두돈반 아닙니다. 오돈입니다.",
+    "imageFolder": "1776658964991_K-711A1",
+    "imageCount": 1
   }
 ]
