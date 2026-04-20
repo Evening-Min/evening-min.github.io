@@ -133,5 +133,18 @@
     "date": "2026-04-20",
     "isPublished": false,
     "reviewPath": ""
+  },
+  {
+    "name": "G70 3.3T AWD",
+    "year": "2025",
+    "brand": "Genesis",
+    "type": "Sedan",
+    "fuel": "Gasoline",
+    "size": "Compact",
+    "price": "62,410,000",
+    "experience": "제조사 시승",
+    "date": "2026-04-20",
+    "isPublished": false,
+    "reviewPath": ""
   }
 ]
