@@ -157,7 +157,10 @@
     "price": "39,950,000",
     "experience": "기타",
     "date": "2026-04-20",
-    "isPublished": false,
-    "reviewPath": ""
+    "isPublished": true,
+    "reviewPath": "reviews/1776754310627_G70_2.0T.json",
+    "postTitle": "G70은 이때가 제일 예뻤다",
+    "imageFolder": "1776754310627_G70_2.0T",
+    "imageCount": 1
   }
 ]
