@@ -162,5 +162,18 @@
     "postTitle": "G70은 이때가 제일 예뻤다",
     "imageFolder": "1776832931288_G70_2.0T",
     "imageCount": 1
+  },
+  {
+    "name": "Sorento Hybrid",
+    "year": "2023",
+    "brand": "Kia",
+    "type": "SUV",
+    "fuel": "Gasoline Hybrid",
+    "size": "Mid-size",
+    "price": "45,000,000",
+    "experience": "지인/친척 차량",
+    "date": "2026-04-28",
+    "isPublished": false,
+    "reviewPath": ""
   }
 ]
