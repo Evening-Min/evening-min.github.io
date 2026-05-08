@@ -12,12 +12,16 @@ let allMaintenanceData = allMaintenanceData || [];
 
 // 모달 닫기 함수가 전역에서 접근 가능하게
 window.closeMaintModal = function() {
-    document.getElementById('maint-modal').style.display = 'none';
-    document.getElementById('shopping-result-container').innerHTML = '';
+    const modal = document.getElementById('maint-detail-modal');
+    if (modal) modal.style.display = 'none';
+    const shopContainer = document.getElementById('shopping-result-container');
+    if (shopContainer) shopContainer.innerHTML = '<p class="api-placeholder">쇼핑 정보를 불러오는 중입니다...</p>';
 };
 
 document.addEventListener('DOMContentLoaded', () => {
-    fetchMaintenanceData();
+    if (document.getElementById('maintenance-body')) { // maintenance.html에서만 실행
+        fetchMaintenanceData();
+    }
 });
 
 /**

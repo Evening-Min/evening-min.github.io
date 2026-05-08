@@ -87,18 +87,20 @@ async function loadBestMaintenanceItems() {
     }
 }
 
-// index.js의 renderBestItems 함수 수정
+/**
+ * 정비 기록 중 별점 5점 아이템을 렌더링합니다.
+ */
 function renderBestItems(items) {
     const container = document.getElementById('best-items-container');
     if (!container) return;
     
     container.innerHTML = items.map((item, index) => {
-        // [중요] maintenance.js의 openMaintModal을 쓰려면 
-        // 전체 데이터 중 해당 아이템의 '인덱스'가 필요할 수 있습니다.
-        // 여기서는 간단하게 item 데이터를 직접 전달하는 방식으로 설명할게요.
+        // [중요] maintenance.js의 openMaintModal은 데이터 배열과 인덱스를 인자로 받습니다.
+        // 인덱스 페이지의 bestItems 배열을 전역으로 잠시 보관하거나, 데이터를 직접 넘기는 방식으로 처리합니다.
+        const safeItem = encodeURIComponent(JSON.stringify(item));
         
         return `
-        <article class="post-card" onclick="openModalForBest('${encodeURIComponent(JSON.stringify(item))}')">
+        <article class="post-card" onclick="openIndexBestModal('${safeItem}')">
             <div class="card-content" style="padding: 20px;">
                 <div class="card-meta">
                     <span>${item.date}</span>
@@ -106,28 +108,27 @@ function renderBestItems(items) {
                 </div>
                 <h3 class="card-title">⭐ ${item.item}</h3>
                 <p style="font-size: 0.9rem; color: #666; margin-top: 10px;">
-                    ${item.review ? item.review : "강력 추천 아이템!"}
+                    ${item.review || "상세 정보를 확인해보세요."}
                 </p>
             </div>
         </article>
     `}).join('');
 }
 
-// 인덱스 페이지 전용 모달 오픈 함수
-window.openModalForBest = function(itemStr) {
+/**
+ * 인덱스 전용 모달 오픈 브릿지 함수
+ */
+window.openIndexBestModal = function(itemStr) {
     const item = JSON.parse(decodeURIComponent(itemStr));
     
-    // maintenance.js에 정의된 요소들에 데이터 채우기
-    document.getElementById('modal-item-title').innerText = item.item;
-    document.getElementById('modal-item-info').innerText = `${item.date} | ${item.mileage.toLocaleString()} km`;
-    document.getElementById('modal-item-review').innerHTML = `
-        <div class="stars">${'⭐'.repeat(item.rating)}</div>
-        <p>${item.review || ''}</p>
-    `;
+    // maintenance.js의 로직을 그대로 수행합니다.
+    document.getElementById('modal-item-name').innerText = item.item;
+    document.getElementById('modal-star-rating').innerText = '⭐'.repeat(item.rating);
+    document.getElementById('modal-user-review').innerText = `"${item.review || ''}"`;
     
-    document.getElementById('maint-modal').style.display = 'flex';
+    document.getElementById('maint-detail-modal').style.display = 'flex';
     
-    // 네이버 쇼핑 API 호출 (이게 핵심!)
+    // 네이버 쇼핑 API 호출 (maintenance.js에 있는 함수 호출)
     if (typeof fetchNaverShopping === 'function') {
         fetchNaverShopping(item.item);
     }
