@@ -53,7 +53,7 @@ function renderMaintenanceTable(data) {
     if (!tbody) return;
     tbody.innerHTML = '';
 
-    const catMap = { oil: '오일류', part: '소모품', wash: '세차/외장', repair: '수리/교체' };
+    const catMap = { oil: '오일', part: '소모품', tyre: '타이어', wash: '세차/외장', repair: '수리/교체' , etc: '기타' };
 
     data.forEach((log, index) => {
         const row = document.createElement('tr');

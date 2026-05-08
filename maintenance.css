@@ -86,8 +86,10 @@
 
 .category-oil { background: #eef6ff; color: #1976d2; }    /* 파랑: 오일 */
 .category-part { background: #fff8e1; color: #f9a825; }   /* 노랑: 소모품 */
+.category-tyre { background: #f3e5f5; color: #3c3c3c; }   /* 회색: 타이어 */
 .category-repair { background: #fff1f0; color: #ff4d4f; } /* 빨강: 수리 */
 .category-wash { background: #f6ffed; color: #52c41a; }   /* 초록: 세차 */
+.category-etc { background: #f0f0f0; color: #60255c; }    /* 보라: 기타 */
 
 /* Clickable Item Style */
 .clickable-item {
