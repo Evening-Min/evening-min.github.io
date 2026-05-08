@@ -116,12 +116,17 @@ async function importCareerFromAbout() {
         const parser = new DOMParser();
         const doc = parser.parseFromString(htmlString, 'text/html');
 
-        // about.html의 career-list를 찾음
+        // about.html에서 .career-list 전체를 복사
         const careerContent = doc.querySelector('.career-list');
         const container = document.getElementById('sidebar-career-container');
 
         if (careerContent && container) {
+            // 제목은 유지하고 내용물만 교체
+            const title = container.querySelector('.section-title');
             container.innerHTML = ''; 
+            if(title) container.appendChild(title);
+            
+            // 복사본을 넣으면서 클래스 이름을 명확히 유지
             container.appendChild(careerContent.cloneNode(true));
         }
     } catch (e) {

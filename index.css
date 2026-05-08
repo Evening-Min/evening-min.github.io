@@ -232,54 +232,53 @@
     line-height: 1.4;
 }
 
-/* index.css 하단에 추가 또는 수정 */
-/* 8:2 레이아웃 설정 */
+/* index.css 하단 수정 */
+
+/* 8:2 레이아웃 확정 */
 .index-layout {
     display: grid;
-    grid-template-columns: 8fr 2fr; /* 8:2 비율 */
+    grid-template-columns: 8fr 2fr;
     gap: 40px;
     margin-top: 40px;
 }
 
-/* 사이드바 약력 박스 스타일 (About 페이지 스타일 계승) */
-.index-sidebar .career-list {
+/* 사이드바 박스 스타일 강제 적용 */
+.index-sidebar .career-list, 
+.about-sidebar .career-list {
     display: flex;
     flex-direction: column;
     gap: 15px;
+    margin-top: 20px;
 }
 
-/* 둥근 박스 처리 */
-.index-sidebar .career-item {
-    background: #f8f9fa;
-    padding: 15px;
-    border-radius: 12px; /* 둥근 박스 */
+/* [중요] About 페이지와 동일한 둥근 박스 스타일 */
+.career-item {
+    background: #fcfcfc; /* about.html의 사이드바 배경색 */
+    padding: 20px;
+    border-radius: 15px; /* 둥근 박스 */
     border: 1px solid #eee;
-    transition: transform 0.2s;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.02);
 }
 
-.index-sidebar .career-item:hover {
+.career-item:hover {
     transform: translateY(-3px);
-    box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+    box-shadow: 0 8px 15px rgba(0,0,0,0.05);
+    border-color: #2383e2;
 }
 
-.index-sidebar .career-date {
+.career-date {
     display: block;
-    font-size: 0.8rem;
-    color: #2383e2;
-    font-weight: bold;
-    margin-bottom: 5px;
-}
-
-.index-sidebar .career-desc {
     font-size: 0.85rem;
-    color: #333;
-    margin: 0;
-    line-height: 1.4;
+    color: #2383e2;
+    font-weight: 800; /* 더 두껍게 */
+    margin-bottom: 8px;
 }
 
-/* 모바일 대응 */
-@media (max-width: 992px) {
-    .index-layout {
-        grid-template-columns: 1fr;
-    }
+.career-desc {
+    font-size: 0.95rem;
+    color: #333;
+    font-weight: 500;
+    margin: 0;
+    line-height: 1.5;
 }
