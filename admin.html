@@ -29,26 +29,18 @@
     </header>
 
     <main class="admin-main">
+        <nav class="admin-tab-nav">
+            <button id="tab-car" class="tab-btn active">시승기 관리</button>
+            <button id="tab-maint" class="tab-btn">정비 기록 관리</button>
+        </nav>
+
         <div class="main-actions">
             <button id="btn-open-modal" class="btn-new-sky">+ 새 자동차 추가하기</button>
         </div>
 
         <section class="database-view">
             <table class="notion-table">
-                <thead>
-                    <tr>
-                        <th>🚘 자동차 이름</th>
-                        <th>🔟 연식</th>
-                        <th>⭐️ 브랜드</th>
-                        <th>🚙 형식</th>
-                        <th>⛽️ 연료 종류</th>
-                        <th>📏 크기</th>
-                        <th>💵 가격</th>
-                        <th>🗺️ 체험 경로</th>
-                        <th>📅 등록일</th>
-                        <th>⚙️ 관리</th>
-                    </tr>
-                </thead>
+                <thead id="db-thead"></thead>
                 <tbody id="db-body"></tbody>
             </table>
             <div id="pagination-controls" class="pagination"></div>
@@ -154,6 +146,36 @@
                 <div class="modal-footer">
                     <button type="button" id="btn-cancel" class="btn-secondary">취소</button>
                     <button type="button" id="btn-next" class="btn-primary">저장</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div id="maintenance-modal-container" class="modal">
+        <div class="modal-content" style="width: 600px;">
+            <div class="modal-header">
+                <h3>정비 기록 입력</h3>
+            </div>
+            <form id="maint-form">
+                <div class="form-grid">
+                    <div class="form-row">
+                        <label>분류</label>
+                        <select id="maint-category">
+                            <option value="oil">오일/케미컬</option>
+                            <option value="part">필터/소모품</option>
+                            <option value="wash">세차/외장</option>
+                            <option value="repair">수리/교체</option>
+                        </select>
+                    </div>
+                    <div class="form-row"><label>날짜</label><input type="date" id="maint-date"></div>
+                    <div class="form-row"><label>주행거리 (km)</label><input type="number" id="maint-mileage" placeholder="79400"></div>
+                    <div class="form-row"><label>비용 (₩)</label><input type="text" id="maint-cost" placeholder="55000" oninput="formatPrice(this)"></div>
+                    <div class="form-row" style="grid-column: 1 / -1;"><label>정비 및 부품 내역</label><input type="text" id="maint-item" placeholder="예: 리스타 슈퍼노멀 0W20 FE"></div>
+                    <div class="form-row" style="grid-column: 1 / -1;"><label>비고</label><input type="text" id="maint-note" placeholder="필터 포함 자가 정비 완료"></div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" id="btn-maint-cancel" class="btn-secondary">취소</button>
+                    <button type="button" id="btn-maint-next" class="btn-primary">저장</button>
                 </div>
             </form>
         </div>

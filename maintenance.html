@@ -9,42 +9,65 @@
 <html lang="ko">
 <head>
     <meta charset="UTF-8">
-    <title>정비 이력 데이터베이스</title>
-    <link rel="stylesheet" href="style.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Maintenance Log | My Automotive Blog</title>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="common.css?v=1.1">
+    <link rel="stylesheet" href="index.css?v=1.1">
+    <link rel="stylesheet" href="maintenance.css?v=1.1">
 </head>
 <body>
-    <header>
-        <h1>차량 관리 시스템</h1>
-        <nav>
-            <ul>
-                <li><a href="index.html">시승기</a></li>
-                <li><a href="maintenance.html">정비 이력</a></li>
-            </ul>
-        </nav>
+
+    <header class="hero-section">
+        <img src="images/my-car.jpeg" alt="Maintenance Hero" class="hero-photo">
+        <div class="hero-text-container">
+            <h1>Maintenance Log</h1>
+        </div>
     </header>
 
-    <main>
-        <h2>Maintenance Log: 2017 Chevrolet Spark</h2>
-        <table class="data-table">
-            <thead>
-                <tr>
-                    <th>날짜</th>
-                    <th>항목</th>
-                    <th>주행거리(km)</th>
-                    <th>비용</th>
-                    <th>비고</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td>2025-05-10</td>
-                    <td>엔진오일 교체 (5W-20)</td>
-                    <td>65,400</td>
-                    <td>₩55,000</td>
-                    <td>필터 포함, 자가 정비</td>
-                </tr>
-                </tbody>
-        </table>
+    <nav class="main-nav">
+        <ul>
+            <li><a href="index.html" class="nav-btn">Home</a></li>
+            <li><a href="about.html" class="nav-btn">About me</a></li>
+            <li><a href="review.html" class="nav-btn">Car Review</a></li>
+            <li><a href="maintenance.html" class="nav-btn active">Maintenance Log</a></li>
+        </ul>
+    </nav>
+
+    <main class="content-container">
+        <div class="maintenance-header">
+            <h2 class="section-title">2017 Chevrolet Spark (M400)</h2>
+            <p class="maintenance-summary">누적 주행거리: <span id="total-mileage">0</span> km</p>
+        </div>
+
+        <section class="database-view">
+            <table class="notion-table">
+                <thead>
+                    <tr>
+                        <th style="width: 120px;">📂 분류</th>
+                        <th style="width: 120px;">📅 날짜</th>
+                        <th style="width: 130px;">📏 주행거리</th>
+                        <th>🔧 정비 및 부품 내역</th>
+                        <th style="width: 120px;">💵 비용</th>
+                        <th>📝 비고</th>
+                    </tr>
+                </thead>
+                <tbody id="maintenance-body">
+                    </tbody>
+            </table>
+        </section>
     </main>
+
+    <footer class="admin-footer">
+        <div class="footer-container">
+            <div class="footer-info">
+                <p>INU ITE 202201630 Jeon Youngmin</p>
+                <p>© 2026 My Automotive Blog. All rights reserved.</p>
+            </div>
+            <a href="login.html" class="admin-link" target="_blank">Go to Database Admin →</a>
+        </div>
+    </footer>
+
+    <script src="maintenance.js"></script>
 </body>
 </html>

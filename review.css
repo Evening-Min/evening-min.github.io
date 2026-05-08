@@ -29,6 +29,13 @@
     text-shadow: 0 2px 10px rgba(0,0,0,0.5);
 }
 
+.hero-text-container h1 {
+    font-size: 3.5rem;            /* index.css와 동일하게 맞춤 */
+    font-weight: 800;             /* 더 두껍게 */
+    letter-spacing: -1px;         /* 자간 조절 */
+    text-shadow: 0 4px 10px rgba(0,0,0,0.3); /* 그림자 효과 동일하게 적용 */
+}
+
 /* 1. 내비게이션: 테두리 제거 및 글자 중심 디자인 */
 /* index.css의 네비게이션 로직을 그대로 이식 */
 .main-nav {

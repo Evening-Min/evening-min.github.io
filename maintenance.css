@@ -1,0 +1,81 @@
+/*
+ * Name: Youngmin Jeon
+ * Date: April 14, 2024
+ * Section: IAB 6068
+ * This is css for the maintenance log page.
+ */
+
+/* Notion Style Table Extension */
+.maintenance-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    margin-bottom: 20px;
+}
+
+.maintenance-summary {
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: #2383e2;
+}
+
+.notion-table {
+    width: 100%;
+    border-collapse: collapse;
+    background: white;
+    border: 1px solid #eee;
+    border-radius: 12px;
+    overflow: hidden;
+}
+
+.notion-table th {
+    background: #f9f9f9;
+    padding: 15px 12px;
+    font-size: 0.85rem;
+    color: #777;
+    text-align: left;
+    border-bottom: 2px solid #eee;
+}
+
+.notion-table td {
+    padding: 15px 12px;
+    border-bottom: 1px solid #eee;
+    font-size: 0.95rem;
+    vertical-align: middle;
+}
+
+/* Category Badges */
+.badge {
+    padding: 4px 10px;
+    border-radius: 5px;
+    font-size: 0.8rem;
+    font-weight: 700;
+    display: inline-block;
+}
+
+.category-oil { background: #eef6ff; color: #1976d2; }    /* 파랑: 오일 */
+.category-part { background: #fff8e1; color: #f9a825; }   /* 노랑: 소모품 */
+.category-repair { background: #fff1f0; color: #ff4d4f; } /* 빨강: 수리 */
+.category-wash { background: #f6ffed; color: #52c41a; }   /* 초록: 세차 */
+
+/* Clickable Item Style */
+.clickable-item {
+    color: #1a1a1a;
+    font-weight: 600;
+    cursor: pointer;
+    text-decoration: underline;
+    text-decoration-color: #ddd;
+    transition: all 0.2s;
+}
+
+.clickable-item:hover {
+    color: #2383e2;
+    text-decoration-color: #2383e2;
+    background: #f0f7ff;
+}
+
+.cost-text {
+    font-weight: 700;
+    text-align: right;
+    display: block;
+}
