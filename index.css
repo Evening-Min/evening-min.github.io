@@ -234,10 +234,10 @@
 
 /* index.css 하단 수정 */
 
-/* 8:2 레이아웃 확정 */
+/* 85:15 레이아웃 확정 */
 .index-layout {
     display: grid;
-    grid-template-columns: 8fr 2fr;
+    grid-template-columns: 8.5fr 1.5fr;
     gap: 40px;
     margin-top: 40px;
 }
