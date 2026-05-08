@@ -5,11 +5,11 @@
  * This is css for the review page.
  */
 
-/* 히어로 및 내비게이션 스타일은 index.css와 동일하게 유지되도록 설정 (필요시 index.css 내용 복사) */
+/* 히어로 높이를 인덱스 페이지보다는 좁게 해서 내용들이 보이게 설정 */
 .hero-section {
     position: relative;
     width: 100%;
-    height: 45vh; /* 인덱스와 동일 비율 */
+    height: 35vh; /* 세부 페이지들은 조금 높게 설정하기 */
     overflow: hidden;
 }
 
