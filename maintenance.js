@@ -127,3 +127,39 @@ async function fetchNaverShopping(query) {
         container.innerHTML = '<p class="api-placeholder">쇼핑 정보를 불러올 수 없습니다. (CORS access 필요)</p>';
     }
 }
+
+/**
+ * [해결] API 결과를 받아서 썸네일과 가격을 모달에 렌더링합니다.
+ * @param {Array} items - 네이버 쇼핑 결과 아이템 리스트
+ */
+function renderShoppingResults(items) {
+    const container = document.getElementById('shopping-result-container');
+    container.innerHTML = ''; // "로딩 중" 문구 제거
+
+    if (!items || items.length === 0) {
+        container.innerHTML = '<p class="api-placeholder">관련 상품 검색 결과가 없습니다.</p>';
+        return;
+    }
+
+    items.forEach(item => {
+        // 동적 DOM 생성: 썸네일, 상품명, 최저가
+        const itemEl = document.createElement('div');
+        itemEl.className = 'shopping-item-card';
+        
+        // HTML 태그(<b> 등) 제거 및 가격 포맷팅
+        const cleanTitle = item.title.replace(/<[^>]*>?/gm, '');
+        const lprice = Number(item.lprice).toLocaleString();
+
+        itemEl.innerHTML = `
+            <a href="${item.link}" target="_blank" class="shopping-link" style="display: flex; align-items: center; text-decoration: none; color: inherit; border: 1px solid #eee; margin-bottom: 10px; border-radius: 10px; overflow: hidden;">
+                <img src="${item.image}" alt="${cleanTitle}" style="width: 80px; height: 80px; object-fit: cover; border-right: 1px solid #eee;">
+                <div class="shop-info" style="padding: 10px;">
+                    <p class="shop-title" style="font-size: 0.9rem; font-weight: bold; margin: 0 0 5px 0;">${cleanTitle}</p>
+                    <p class="shop-price" style="color: #ff4d4f; font-weight: bold; margin: 0;">최저가 ₩${lprice}</p>
+                    <span class="shop-mall" style="font-size: 0.75rem; color: #999;">판매처: ${item.mallName}</span>
+                </div>
+            </a>
+        `;
+        container.appendChild(itemEl);
+    });
+}
