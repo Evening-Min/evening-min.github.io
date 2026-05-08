@@ -106,6 +106,8 @@ async function fetchNaverShopping(query) {
     const PROXY_URL = 'https://cors-anywhere.herokuapp.com/';
     const API_URL = `https://openapi.naver.com/v1/search/shop.json?query=${encodeURIComponent(query)}&display=3&sort=sim`;
 
+    console.log("네이버 쇼핑 API 호출:", API_URL);
+
     try {
         const response = await fetch(PROXY_URL + API_URL, {
             method: 'GET',
