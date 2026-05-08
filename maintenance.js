@@ -80,7 +80,7 @@ function openMaintModal(index) {
     modal.style.display = 'flex';
 
     // 3. 네이버 쇼핑 API 호출 실행 (다음 단계에서 구현)
-    // fetchNaverShopping(data.item); 
+    fetchNaverShopping(data.item); 
 }
 
 function closeMaintModal() {
