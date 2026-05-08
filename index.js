@@ -105,29 +105,26 @@ function renderBestItems(items) {
     `).join('');
 }
 
+/**
+ * about.html에서 경력 사항만 추출하여 인덱스 사이드바에 삽입합니다.
+ */
 async function importCareerFromAbout() {
     try {
-        // 1. about.html 파일 전체를 텍스트로 가져옵니다.
         const response = await fetch('about.html');
         const htmlString = await response.text();
 
-        // 2. 가상의 DOM 객체를 만들어 텍스트를 HTML로 파싱합니다.
         const parser = new DOMParser();
         const doc = parser.parseFromString(htmlString, 'text/html');
 
-        // 3. about.html 내의 .career-list 요소를 찾아옵니다.
+        // about.html의 career-list를 찾음
         const careerContent = doc.querySelector('.career-list');
-        const sidebarContainer = document.querySelector('.about-sidebar');
+        const container = document.getElementById('sidebar-career-container');
 
-        if (careerContent && sidebarContainer) {
-            // 4. 인덱스 페이지의 사이드바 제목 아래에 내용을 집어넣습니다.
-            // 기존에 하드코딩된 내용이 있다면 덮어씌우거나 추가합니다.
-            const title = sidebarContainer.querySelector('.section-title');
-            sidebarContainer.innerHTML = ''; // 초기화
-            sidebarContainer.appendChild(title); // 제목은 유지
-            sidebarContainer.appendChild(careerContent.cloneNode(true));
+        if (careerContent && container) {
+            container.innerHTML = ''; 
+            container.appendChild(careerContent.cloneNode(true));
         }
     } catch (e) {
-        console.error("약력을 불러오는 데 실패했습니다:", e);
+        console.error("약력 로드 실패:", e);
     }
 }

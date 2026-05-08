@@ -233,21 +233,53 @@
 }
 
 /* index.css 하단에 추가 또는 수정 */
-.about-layout {
-    display: flex;
+/* 8:2 레이아웃 설정 */
+.index-layout {
+    display: grid;
+    grid-template-columns: 8fr 2fr; /* 8:2 비율 */
     gap: 40px;
     margin-top: 40px;
 }
 
-/* 왼쪽 섹션 안의 그리드를 2열로 조정 */
-.about-main-content .post-grid {
-    grid-template-columns: repeat(2, 1fr); 
-    margin-bottom: 20px;
+/* 사이드바 약력 박스 스타일 (About 페이지 스타일 계승) */
+.index-sidebar .career-list {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
 }
 
-/* 모바일 대응 (반응형) */
+/* 둥근 박스 처리 */
+.index-sidebar .career-item {
+    background: #f8f9fa;
+    padding: 15px;
+    border-radius: 12px; /* 둥근 박스 */
+    border: 1px solid #eee;
+    transition: transform 0.2s;
+}
+
+.index-sidebar .career-item:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+}
+
+.index-sidebar .career-date {
+    display: block;
+    font-size: 0.8rem;
+    color: #2383e2;
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+.index-sidebar .career-desc {
+    font-size: 0.85rem;
+    color: #333;
+    margin: 0;
+    line-height: 1.4;
+}
+
+/* 모바일 대응 */
 @media (max-width: 992px) {
-    .about-layout {
-        flex-direction: column;
+    .index-layout {
+        grid-template-columns: 1fr;
     }
 }
