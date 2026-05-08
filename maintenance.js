@@ -7,8 +7,9 @@
 
 "use strict";
 
-// maintenance.js 최상단
-let allMaintenanceData = allMaintenanceData || []; 
+if (typeof allMaintenanceData === 'undefined') {
+    var allMaintenanceData = []; 
+}
 
 // 모달 닫기 함수가 전역에서 접근 가능하게
 window.closeMaintModal = function() {
@@ -19,11 +20,12 @@ window.closeMaintModal = function() {
 };
 
 document.addEventListener('DOMContentLoaded', () => {
-    if (document.getElementById('maintenance-body')) { // maintenance.html에서만 실행
-        fetchMaintenanceData();
+    // 현재 페이지가 maintenance.html일 때만 실행 (body에 id가 있을 경우)
+    const maintBody = document.getElementById('maintenance-body');
+    if (maintBody) {
+        fetchMaintenanceData(); // 기존에 있던 데이터 로드 함수
     }
 });
-
 /**
  * [CSP 3] maintenance.json 데이터를 가져옵니다.
  */
