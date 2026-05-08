@@ -436,3 +436,42 @@
     background-color: #1976d2;
     border-radius: 3px 3px 0 0;
 }
+
+/* --- [별점 시스템 스타일] --- */
+.star-rating {
+    display: flex;
+    gap: 5px;
+    font-size: 1.8rem;
+    color: #ddd; /* 기본 회색 별 */
+    cursor: pointer;
+    user-select: none;
+    margin-top: 5px;
+}
+
+.star-rating span {
+    transition: color 0.2s ease, transform 0.1s ease;
+}
+
+.star-rating span:hover {
+    transform: scale(1.2);
+}
+
+/* 선택된 별들과 그 이전 별들을 강조 */
+.star-rating span.active {
+    color: #ffca28; /* 황금색 별 */
+}
+
+/* 리뷰 텍스트에리어 스타일 */
+#maint-review {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    font-family: inherit;
+    resize: none;
+    outline: none;
+}
+
+#maint-review:focus {
+    border-color: #1976d2;
+}

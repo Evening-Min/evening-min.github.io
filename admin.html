@@ -152,34 +152,56 @@
     </div>
 
     <div id="maintenance-modal-container" class="modal">
-        <div class="modal-content" style="width: 600px;">
-            <div class="modal-header">
-                <h3>정비 기록 입력</h3>
-            </div>
-            <form id="maint-form">
-                <div class="form-grid">
-                    <div class="form-row">
-                        <label>분류</label>
-                        <select id="maint-category">
-                            <option value="oil">오일/케미컬</option>
-                            <option value="part">필터/소모품</option>
-                            <option value="wash">세차/외장</option>
-                            <option value="repair">수리/교체</option>
-                        </select>
-                    </div>
-                    <div class="form-row"><label>날짜</label><input type="date" id="maint-date"></div>
-                    <div class="form-row"><label>주행거리 (km)</label><input type="number" id="maint-mileage" placeholder="79400"></div>
-                    <div class="form-row"><label>비용 (₩)</label><input type="text" id="maint-cost" placeholder="55000" oninput="formatPrice(this)"></div>
-                    <div class="form-row" style="grid-column: 1 / -1;"><label>정비 및 부품 내역</label><input type="text" id="maint-item" placeholder="예: 리스타 슈퍼노멀 0W20 FE"></div>
-                    <div class="form-row" style="grid-column: 1 / -1;"><label>비고</label><input type="text" id="maint-note" placeholder="필터 포함 자가 정비 완료"></div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" id="btn-maint-cancel" class="btn-secondary">취소</button>
-                    <button type="button" id="btn-maint-next" class="btn-primary">저장</button>
-                </div>
-            </form>
+    <div class="modal-content" style="width: 600px;">
+        <div class="modal-header">
+            <h3>정비 기록 입력</h3>
         </div>
+        <form id="maint-form">
+            <div class="form-grid">
+                <div class="form-row">
+                    <label>분류</label>
+                    <select id="maint-category">
+                        <option value="oil">오일</option>
+                        <option value="part">소모품</option>
+                        <option value="wash">세차/외장</option>
+                        <option value="repair">수리/교체</option>
+                    </select>
+                </div>
+                <div class="form-row"><label>날짜</label><input type="date" id="maint-date"></div>
+                <div class="form-row"><label>주행거리 (km)</label><input type="number" id="maint-mileage" placeholder="79400"></div>
+                <div class="form-row"><label>비용 (₩)</label><input type="text" id="maint-cost" placeholder="55000" oninput="formatPrice(this)"></div>
+                
+                <div class="form-row" style="grid-column: 1 / -1;">
+                    <label>정비 및 부품 내역</label>
+                    <input type="text" id="maint-item" placeholder="예: 킥스 파오 100 5W30">
+                </div>
+
+                <div class="form-row" style="grid-column: 1 / -1;">
+                    <label>만족도 별점</label>
+                    <div class="star-rating" id="maint-star-container">
+                        <span data-value="1">★</span>
+                        <span data-value="2">★</span>
+                        <span data-value="3">★</span>
+                        <span data-value="4">★</span>
+                        <span data-value="5">★</span>
+                    </div>
+                    <input type="hidden" id="maint-rating" value="0">
+                </div>
+
+                <div class="form-row" style="grid-column: 1 / -1;">
+                    <label>나의 한 줄 리뷰</label>
+                    <textarea id="maint-review" rows="3" placeholder="부품의 성능이나 사용 후기를 작성하세요."></textarea>
+                </div>
+
+                <div class="form-row" style="grid-column: 1 / -1;"><label>비고 (메모)</label><input type="text" id="maint-note" placeholder="자가 정비 여부 등"></div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" id="btn-maint-cancel" class="btn-secondary">취소</button>
+                <button type="button" id="btn-maint-next" class="btn-primary">저장</button>
+            </div>
+        </form>
     </div>
+</div>
 
     <script src="admin.js"></script>
 </body>
