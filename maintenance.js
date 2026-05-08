@@ -7,7 +7,14 @@
 
 "use strict";
 
-let allMaintenanceData = [];
+// maintenance.js 최상단
+let allMaintenanceData = allMaintenanceData || []; 
+
+// 모달 닫기 함수가 전역에서 접근 가능하게
+window.closeMaintModal = function() {
+    document.getElementById('maint-modal').style.display = 'none';
+    document.getElementById('shopping-result-container').innerHTML = '';
+};
 
 document.addEventListener('DOMContentLoaded', () => {
     fetchMaintenanceData();
