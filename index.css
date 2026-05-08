@@ -231,3 +231,23 @@
     color: #1a1a1a;
     line-height: 1.4;
 }
+
+/* index.css 하단에 추가 또는 수정 */
+.about-layout {
+    display: flex;
+    gap: 40px;
+    margin-top: 40px;
+}
+
+/* 왼쪽 섹션 안의 그리드를 2열로 조정 */
+.about-main-content .post-grid {
+    grid-template-columns: repeat(2, 1fr); 
+    margin-bottom: 20px;
+}
+
+/* 모바일 대응 (반응형) */
+@media (max-width: 992px) {
+    .about-layout {
+        flex-direction: column;
+    }
+}
