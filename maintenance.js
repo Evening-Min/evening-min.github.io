@@ -88,9 +88,40 @@ function closeMaintModal() {
 }
 
 /**
- * [예정] 네이버 쇼핑 API 연동 함수 (비워둠)
+ * [보안 강화] 로컬스토리지에서 키를 가져와 네이버 쇼핑 API를 호출합니다.
  */
 async function fetchNaverShopping(query) {
-    // 여기에 Fetch API와 Naver Search API 로직이 들어갈 예정입니다.
-    console.log(`${query} 검색을 시작합니다.`);
+    const container = document.getElementById('shopping-result-container');
+    
+    // 브라우저 금고에서 키 꺼내기
+    const CLIENT_ID = localStorage.getItem('naver_client_id');
+    const CLIENT_SECRET = localStorage.getItem('naver_client_secret');
+
+    if (!CLIENT_ID || !CLIENT_SECRET) {
+        container.innerHTML = '<p class="api-placeholder">로그인 페이지에서 네이버 API 키를 먼저 설정해주세요.</p>';
+        return;
+    }
+
+    // CORS 우회 프록시 서버
+    const PROXY_URL = 'https://cors-anywhere.herokuapp.com/';
+    const API_URL = `https://openapi.naver.com/v1/search/shop.json?query=${encodeURIComponent(query)}&display=3&sort=sim`;
+
+    try {
+        const response = await fetch(PROXY_URL + API_URL, {
+            method: 'GET',
+            headers: {
+                'X-Naver-Client-Id': CLIENT_ID,
+                'X-Naver-Client-Secret': CLIENT_SECRET
+            }
+        });
+
+        if (!response.ok) throw new Error("API 호출 실패");
+
+        const data = await response.json();
+        renderShoppingResults(data.items); // 결과를 화면에 그리는 함수 실행
+        
+    } catch (error) {
+        console.error(error);
+        container.innerHTML = '<p class="api-placeholder">쇼핑 정보를 불러올 수 없습니다. (CORS access 필요)</p>';
+    }
 }

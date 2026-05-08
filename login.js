@@ -22,6 +22,8 @@ document.addEventListener('DOMContentLoaded', () => {
         const idInput = document.getElementById('admin-id');
         const pwInput = document.getElementById('admin-pw');
         const tokenInput = document.getElementById('github-token');
+        const naverIdInput = document.getElementById('naver-id');
+        const naverSecretInput = document.getElementById('naver-secret');
         const errorText = document.getElementById('error-text');
 
         if (idInput.value === ADMIN_ID && pwInput.value === ADMIN_PW) {
@@ -30,6 +32,12 @@ document.addEventListener('DOMContentLoaded', () => {
             // 토큰이 입력되었다면 로컬 스토리지에 저장 (지우지 않는 한 유지)
             if (tokenInput.value) {
                 localStorage.setItem("gh_token", tokenInput.value);
+            }
+            if (naverIdInput && naverIdInput.value) {
+                localStorage.setItem("naver_client_id", naverIdInput.value);
+            }
+            if (naverSecretInput && naverSecretInput.value) {
+                localStorage.setItem("naver_client_secret", naverSecretInput.value);
             }
             
             window.location.replace("admin.html"); 
